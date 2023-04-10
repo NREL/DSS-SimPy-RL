@@ -59,15 +59,15 @@ Commad: `conda env create --file environment.yaml`
 
 - **visuals**: This folder is a visualization app for visualizing the simulation and observing the resilience metric in real-time as the episodes and their steps are executed. The `OpenDssEnvVisual.py` is the application implementation for the Open DSS physical RL environment.
 
-![Sample Visualization for the open-DSS RL environment](https://github.com/Abhijeet1990/Dss_SimPy_RL/blob/main/visualization.PNG?raw=true)
+![Sample Visualization for the open-DSS RL environment](https://github.com/Abhijeet1990/Dss-SimPy-RL/blob/main/visualization.PNG?raw=true)
 
 `CyberEnvVisual.py` is the application implementation for the Simpy based Cyber RL environment. The IEEE 123 bus case is divided into 7 zones. Within each zones there is a `data concentrator` shown in red node, the green node is the `DSO`, while all the blue nodes are the `Routers` represent the hybrid topology. 
 
-![Sample Visualization for the Simpy-based RL environment](https://github.com/Abhijeet1990/Dss_SimPy_RL/blob/main/cyber_visualization_new.PNG?raw=true)
+![Sample Visualization for the Simpy-based RL environment](https://github.com/Abhijeet1990/Dss-SimPy-RL/blob/main/cyber_visualization_new.PNG?raw=true)
 
 `CyberPhysicalEnvVisual.py` is the application implementation for the Simpy based and OpenDSS based CyberPhysical combined RL environment.
 
-[User Documentation](https://abhijeet1990.github.io/Dss_SimPy_RL/html/index.html) for the Dss_SimPy_RL alongwith the utilization of this RL environment for Adaptive resilience Metric learning using Inverse Reinforcement Learning (ARM_IRL).
+[User Documentation](https://abhijeet1990.github.io/Dss-SimPy-RL/html/index.html) for the Dss-SimPy-RL alongwith the utilization of this RL environment for Adaptive resilience Metric learning using Inverse Reinforcement Learning (ARM_IRL).
 
 
 
