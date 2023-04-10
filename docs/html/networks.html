@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>networks module &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">networks module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-networks">
+<span id="networks-module"></span><h1>networks module<a class="headerlink" href="#module-networks" title="Permalink to this headline">¶</a></h1>
+<p>Helper methods to build and run neural networks.
+Code adopted from <a class="reference external" href="https://github.com/HumanCompatibleAI/imitation.git">https://github.com/HumanCompatibleAI/imitation.git</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="networks.BaseNorm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">networks.</span></span><span class="sig-name descname"><span class="pre">BaseNorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#networks.BaseNorm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Base class for layers that try to normalize the input to mean 0 and variance 1.</p>
+<p>Similar to BatchNorm, LayerNorm, etc. but whereas they only use statistics from
+the current batch at train time, we use statistics from all batches.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="networks.BaseNorm.count">
+<span class="sig-name descname"><span class="pre">count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#networks.BaseNorm.count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="networks.BaseNorm.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="headerlink" href="#networks.BaseNorm.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates statistics if in training mode. Returns normalized <cite>x</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="networks.BaseNorm.reset_running_stats">
+<span class="sig-name descname"><span class="pre">reset_running_stats</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#networks.BaseNorm.reset_running_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets running stats to defaults, yielding the identity transformation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="networks.BaseNorm.running_mean">
+<span class="sig-name descname"><span class="pre">running_mean</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#networks.BaseNorm.running_mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="networks.BaseNorm.running_var">
+<span class="sig-name descname"><span class="pre">running_var</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#networks.BaseNorm.running_var" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="networks.BaseNorm.update_stats">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#networks.BaseNorm.update_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update <cite>self.running_mean</cite>, <cite>self.running_var</cite> and <cite>self.count</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="networks.EMANorm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">networks.</span></span><span class="sig-name descname"><span class="pre">EMANorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.99</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#networks.EMANorm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#networks.BaseNorm" title="networks.BaseNorm"><code class="xref py py-class docutils literal notranslate"><span class="pre">networks.BaseNorm</span></code></a></p>
+<p>Similar to RunningNorm but uses an exponential weighting.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="networks.EMANorm.count">
+<span class="sig-name descname"><span class="pre">count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#networks.EMANorm.count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="networks.EMANorm.running_mean">
+<span class="sig-name descname"><span class="pre">running_mean</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#networks.EMANorm.running_mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="networks.EMANorm.running_var">
+<span class="sig-name descname"><span class="pre">running_var</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#networks.EMANorm.running_var" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="networks.EMANorm.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#networks.EMANorm.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="networks.EMANorm.update_stats">
+<span class="sig-name descname"><span class="pre">update_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#networks.EMANorm.update_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update <cite>self.running_mean</cite> and <cite>self.running_var</cite>.</p>
+<dl class="simple">
+<dt>Reference Finch (2009), “Incremental calculation of weighted mean and variance”.</dt><dd><p>(<a class="reference external" href="https://fanf2.user.srcf.net/hermes/doc/antiforgery/stats.pdf">https://fanf2.user.srcf.net/hermes/doc/antiforgery/stats.pdf</a>)</p>
+</dd>
+<dt>Args:</dt><dd><p>batch: A batch of data to use to update the running mean and variance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="networks.RunningNorm">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">networks.</span></span><span class="sig-name descname"><span class="pre">RunningNorm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#networks.RunningNorm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#networks.BaseNorm" title="networks.BaseNorm"><code class="xref py py-class docutils literal notranslate"><span class="pre">networks.BaseNorm</span></code></a></p>
+<p>Normalizes input to mean 0 and standard deviation 1 using a running average.</p>
+<p>Similar to BatchNorm, LayerNorm, etc. but whereas they only use statistics from
+the current batch at train time, we use statistics from all batches.</p>
+<p>This should closely replicate the common practice in RL of normalizing environment
+observations, such as using <cite>VecNormalize</cite> in Stable Baselines.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="networks.RunningNorm.count">
+<span class="sig-name descname"><span class="pre">count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#networks.RunningNorm.count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="networks.RunningNorm.running_mean">
+<span class="sig-name descname"><span class="pre">running_mean</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#networks.RunningNorm.running_mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="networks.RunningNorm.running_var">
+<span class="sig-name descname"><span class="pre">running_var</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#networks.RunningNorm.running_var" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="networks.RunningNorm.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#networks.RunningNorm.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="networks.RunningNorm.update_stats">
+<span class="sig-name descname"><span class="pre">update_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#networks.RunningNorm.update_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update <cite>self.running_mean</cite>, <cite>self.running_var</cite> and <cite>self.count</cite>.</p>
+<p>Uses Chan et al (1979), “Updating Formulae and a Pairwise Algorithm for
+Computing Sample Variances.” to update the running moments in a numerically
+stable fashion.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>batch: A batch of data to use to update the running mean and variance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="networks.SqueezeLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">networks.</span></span><span class="sig-name descname"><span class="pre">SqueezeLayer</span></span><a class="headerlink" href="#networks.SqueezeLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<p>Torch module that squeezes a B*1 tensor down into a size-B vector.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="networks.SqueezeLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#networks.SqueezeLayer.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="networks.SqueezeLayer.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#networks.SqueezeLayer.training" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="networks.build_mlp">
+<span class="sig-prename descclassname"><span class="pre">networks.</span></span><span class="sig-name descname"><span class="pre">build_mlp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">in_size:</span> <span class="pre">int,</span> <span class="pre">hid_sizes:</span> <span class="pre">typing.Iterable[int],</span> <span class="pre">out_size:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1,</span> <span class="pre">name:</span> <span class="pre">typing.Optional[str]</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">activation:</span> <span class="pre">typing.Type[torch.nn.modules.module.Module]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'torch.nn.modules.activation.ReLU'&gt;,</span> <span class="pre">dropout_prob:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0.0,</span> <span class="pre">squeeze_output:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">flatten_input:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">normalize_input_layer:</span> <span class="pre">typing.Optional[typing.Type[torch.nn.modules.module.Module]]</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.nn.modules.module.Module</span></span></span><a class="headerlink" href="#networks.build_mlp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a Torch MLP.</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>in_size: size of individual input vectors; input to the MLP will be of</dt><dd><p>shape (batch_size, in_size).</p>
+</dd>
+<dt>hid_sizes: sizes of hidden layers. If this is an empty iterable, then we build</dt><dd><p>a linear function approximator.</p>
+</dd>
+</dl>
+<p>out_size: required size of output vector.
+name: Name to use as a prefix for the layers ID.
+activation: activation to apply after hidden layers.
+dropout_prob: Dropout probability to use after each hidden layer. If 0,</p>
+<blockquote>
+<div><p>no dropout layers are added to the network.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>squeeze_output: if out_size=1, then squeeze_input=True ensures that MLP</dt><dd><p>output is of size (B,) instead of (B,1).</p>
+</dd>
+<dt>flatten_input: should input be flattened along axes 1, 2, 3, …? Useful</dt><dd><p>if you want to, e.g., process small images inputs with an MLP.</p>
+</dd>
+<dt>normalize_input_layer: if specified, module to use to normalize inputs;</dt><dd><p>e.g. <cite>nn.BatchNorm</cite> or <cite>RunningNorm</cite>.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>nn.Module: an MLP mapping from inputs of size (batch_size, in_size) to</dt><dd><p>(batch_size, out_size), unless out_size=1 and squeeze_output=True,
+in which case the output is of size (batch_size, ).</p>
+</dd>
+</dl>
+</dd>
+<dt>Raises:</dt><dd><p>ValueError: if squeeze_output was supplied with out_size!=1.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="networks.evaluating">
+<span class="sig-prename descclassname"><span class="pre">networks.</span></span><span class="sig-name descname"><span class="pre">evaluating</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.nn.modules.module.Module</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#networks.evaluating" title="Permalink to this definition">¶</a></dt>
+<dd><p>Temporarily switch module <code class="docutils literal notranslate"><span class="pre">m</span></code> to specified training <code class="docutils literal notranslate"><span class="pre">mode</span></code>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>m: The module to switch the mode of.
+mode: whether to set training mode (<code class="docutils literal notranslate"><span class="pre">True</span></code>) or evaluation (<code class="docutils literal notranslate"><span class="pre">False</span></code>).</p>
+</dd>
+<dt>Yields:</dt><dd><p>The module <cite>m</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="networks.training">
+<span class="sig-prename descclassname"><span class="pre">networks.</span></span><span class="sig-name descname"><span class="pre">training</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.nn.modules.module.Module</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#networks.training" title="Permalink to this definition">¶</a></dt>
+<dd><p>Temporarily switch module <code class="docutils literal notranslate"><span class="pre">m</span></code> to specified training <code class="docutils literal notranslate"><span class="pre">mode</span></code>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>m: The module to switch the mode of.
+mode: whether to set training mode (<code class="docutils literal notranslate"><span class="pre">True</span></code>) or evaluation (<code class="docutils literal notranslate"><span class="pre">False</span></code>).</p>
+</dd>
+<dt>Yields:</dt><dd><p>The module <cite>m</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="networks.training_mode">
+<span class="sig-prename descclassname"><span class="pre">networks.</span></span><span class="sig-name descname"><span class="pre">training_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.nn.modules.module.Module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#networks.training_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Temporarily switch module <code class="docutils literal notranslate"><span class="pre">m</span></code> to specified training <code class="docutils literal notranslate"><span class="pre">mode</span></code>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>m: The module to switch the mode of.
+mode: whether to set training mode (<code class="docutils literal notranslate"><span class="pre">True</span></code>) or evaluation (<code class="docutils literal notranslate"><span class="pre">False</span></code>).</p>
+</dd>
+<dt>Yields:</dt><dd><p>The module <cite>m</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/networks.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">networks module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

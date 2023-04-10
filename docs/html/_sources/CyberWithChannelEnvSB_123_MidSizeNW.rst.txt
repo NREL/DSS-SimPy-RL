@@ -1,0 +1,7 @@
+CyberWithChannelEnvSB\_123\_MidSizeNW module
+============================================
+
+.. automodule:: CyberWithChannelEnvSB_123_MidSizeNW
+   :members:
+   :undoc-members:
+   :show-inheritance:

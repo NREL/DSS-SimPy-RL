@@ -1,0 +1,7 @@
+qs\_test module
+===============
+
+.. automodule:: qs_test
+   :members:
+   :undoc-members:
+   :show-inheritance:

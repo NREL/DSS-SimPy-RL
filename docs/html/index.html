@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Welcome to ARM-IRL’s documentation! &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="OpenDSS RL Env" href="openDSSenvSB_DiscreteSpace.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="openDSSenvSB_DiscreteSpace.html" title="OpenDSS RL Env"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to ARM-IRL’s documentation!</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="welcome-to-arm-irl-s-documentation">
+<h1>Welcome to ARM-IRL’s documentation!<a class="headerlink" href="#welcome-to-arm-irl-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>This project develops a communication discrete-event simulation environment for reinforcement learning using SimPy. Further the environment is extended for cyber physical simulation with integration of the OpenDSS environment, that provides a playground for cyber resilient distribution grid control. This co-simulation RL environment is light-weight and can assist in performing faster simulations and generating large-scale datasets. In the current work two Markov Decision Process (MDP) models are developed for re-routing and network reconfiguration based restoration in the communication and feeder network respectively.</p>
+<p>This cyber-physical RL environment is further utilized to learn an <strong>Adaptive Resilience Metric</strong> using the concept of <strong>Inverse Reinforcement Learning</strong>.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="openDSSenvSB_DiscreteSpace.html">OpenDSS RL Env</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generate_scenario.html">OpenDSS Backend APIs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CyberWithChannelEnvSB_123_Experimentation.html">SimPy Cyber RL Env</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SimpyCyberEnvTest.html">SimPy Cyber RL Env Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenDssEnvTest.html">OpenDSS RL Env Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CPEnv_DiscreteDSS_RtrDropRate.html">SimPyDSS RL Env Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OpenDssEnvVisual.html">OpenDSS RL Env GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CyberEnvVisualNewNW.html">SimPy RL Env GUI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resilience_graphtheory.html">Graph-based Resilience Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generate_expert_demonstrations_feeder.html">OpenDSS : Generate Expert Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generate_expert_demonstrations_ieee123.html">SimPy : Generate Expert Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generate_expert_demonstrations_cps.html">SimPyDSS : Generate Expert Demonstrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cyber_train_bc_ieee123.html">Behavioral Cloning on Re-routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phy_train_bc.html">Behavioral Cloning on N/W reconfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cyber_train_airl_ieee123.html">Adversarial IRL on Re-routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phy_train_airl.html">Adversarial IRL on N/W reconfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cps_train_airl.html">Adversarial IRL on Re-routing &amp; N/W reconfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phy_train_gail.html">GAIL on N/W reconfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cps_train_gail.html">Generative Adversarial Imitation Learning on Re-routing &amp; N/W reconfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="phy_train_dagger.html">DAgger Imitation Learning on N/W reconfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualize_reward_net_cyber.html">Reward Network Visualization for Re-routing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualize_reward_net_physical.html">Reward Network Visualization for Critical Load Restoration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="birl.html">Bayesian Inverse RL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linear_func_approx.html">Max Margin IRL using linear function approximator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bc.html">Behavioral Cloning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dagger.html">DAgger Imitation Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gail.html">Generative Adversarial Imitation Learning (GAIL)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="airl.html">Adversarial IRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dqn.html">Deep Q Network Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="per_dqn.html">Prioritized Experienced Replay DQN</a></li>
+</ul>
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Welcome to ARM-IRL’s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="openDSSenvSB_DiscreteSpace.html"
+                          title="next chapter">OpenDSS RL Env</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="openDSSenvSB_DiscreteSpace.html" title="OpenDSS RL Env"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to ARM-IRL’s documentation!</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

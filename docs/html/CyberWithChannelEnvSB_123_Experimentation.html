@@ -1,0 +1,555 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>SimPy Cyber RL Env &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SimPy Cyber RL Env Test" href="SimpyCyberEnvTest.html" />
+    <link rel="prev" title="OpenDSS Backend APIs" href="generate_scenario.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="SimpyCyberEnvTest.html" title="SimPy Cyber RL Env Test"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="generate_scenario.html" title="OpenDSS Backend APIs"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SimPy Cyber RL Env</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="simpy-cyber-rl-env">
+<h1>SimPy Cyber RL Env<a class="headerlink" href="#simpy-cyber-rl-env" title="Permalink to this headline">¶</a></h1>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="forwarder-device">
+<h2>Forwarder Device<a class="headerlink" href="#forwarder-device" title="Permalink to this headline">¶</a></h2>
+<p>A router is a networking device used for forwarding data packets between two networks. It functions in the network layer of the OSI layer. Conventionally, the router software has two functional processing units: a) Control Plane b) Forwarding Plane. In the control plane, the router maintains a routing table that maintains which path would be used to forward a packet and along which interface. This routing table is statically configured or updated dynamically using dynamic routing protocols such as OSPF, EIGRP, RIP, etc. The time taken to forward packets depends on the processing time of parsing the packet, and searching the next hop information from the routing table. Hence, the service rate, as well as, the queue limit for every router is modeled. The queue limit indicate the amount of byte the router can forward at a given instance. In the forwarding plane, the router simply forwards the packet to the desired interface based on the routing rule. In the MDP model, modelling the router drop rate as state, would play a crucial role in enforcing new routes. The router packet drop rate is defined as ratio of the number of dropped packets and the received packets.</p>
+</section>
+<section id="channel">
+<h2>Channel<a class="headerlink" href="#channel" title="Permalink to this headline">¶</a></h2>
+<p>The channel models the latency and bandwidth between each node in the network model. Based on the traffic, the channels update it utilization rate and computes the available channel capacity with the update frequency in the Simpy DES. A packet injected into the channel is dropped if the total bytes in channel crosses the available channel bandwith. For the evaluation of the environment, the experiments are performed under varying channel bandwidths.</p>
+</section>
+<section id="data-concentrator-dc">
+<h2>Data Concentrator (DC)<a class="headerlink" href="#data-concentrator-dc" title="Permalink to this headline">¶</a></h2>
+<p>It is acting as data collector and forwarder for all the smart meters in the zones. When a fault occurs in the distribution feeder, the relay captures it and forward it to the Data Concentrator (DC). The DC within the zone forwards the state to the Distribution System Operator (DSO) which acts as the Data Aggregator. In the simulation model, it is assumed all the sensor data are accumulated at the DC, hence the payload size of the packet sent to the DA depends on the number of components i.e. transmission lines, buses, switches, etc within a zone. Conventionally, the DC communicates with sensors using power line carriers, while they communicate to DSO through the Wide Area Network (WAN).</p>
+</section>
+<section id="distribution-system-operator-dso-data-aggregator-da">
+<h2>Distribution System Operator (DSO) / Data Aggregator (DA)<a class="headerlink" href="#distribution-system-operator-dso-data-aggregator-da" title="Permalink to this headline">¶</a></h2>
+<p>Packets are received from the DC from different zones in the system. This node acts as the DSO collecting data from each DC. In the MDP model, the goal state to be the state when the data aggregator accept atleast <strong>Ng</strong> traffic within a timeframe from the DCs of each zone.</p>
+</section>
+<section id="module-CyberWithChannelEnvSB_123_Experimentation">
+<span id="classes-and-functions"></span><h2>Classes and Functions<a class="headerlink" href="#module-CyberWithChannelEnvSB_123_Experimentation" title="Permalink to this headline">¶</a></h2>
+<p>Created on Fri July 1 15:24:05 2022</p>
+<p>&#64;author: abhijeetsahu</p>
+<p>This environment is created for episodic interaction of the Simpy based Communication simulator for training RL agent, similar to an Open AI Gym environment
+with implementation of the channel model</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.BaseEnv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CyberWithChannelEnvSB_123_Experimentation.</span></span><span class="sig-name descname"><span class="pre">BaseEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deviceCount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.BaseEnv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gym.core.Env</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.BaseEnv.ASSIGNMENT_DURATION_FACTOR">
+<span class="sig-name descname"><span class="pre">ASSIGNMENT_DURATION_FACTOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1000</span></em><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.BaseEnv.ASSIGNMENT_DURATION_FACTOR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.BaseEnv.MAX_RECEIVER_DEGREE">
+<span class="sig-name descname"><span class="pre">MAX_RECEIVER_DEGREE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.BaseEnv.MAX_RECEIVER_DEGREE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.BaseEnv.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'render.modes':</span> <span class="pre">['human']}</span></em><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.BaseEnv.metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.BaseEnv.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'human'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.BaseEnv.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders the environment to stdout.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.BaseEnv.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.BaseEnv.seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the seed for this environment’s random number generator and returns
+it in a single-item list.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CyberWithChannelEnvSB_123_Experimentation.</span></span><span class="sig-name descname"><span class="pre">CyberEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provided_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channelModel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envDebug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R2_qlimit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ch_bw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">with_threat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp_zones</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.BaseEnv" title="CyberWithChannelEnvSB_123_Experimentation.BaseEnv"><code class="xref py py-class docutils literal notranslate"><span class="pre">CyberWithChannelEnvSB_123_Experimentation.BaseEnv</span></code></a></p>
+<p>This is the Simpy based cyber environment class</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Channel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_bytes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">snr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is the Channel class that models the communication channel.
+the overall delay depends on multiple factors : transmission delay + propagation delay + queueing delay + processing delay
+the transmission delay depends on the channel capacity
+the propagation delay : distance/speed of transmitting medium such as light or sound
+the queueing delay is the wait time and processing at every switch and router
+while the processing delay is all the time consumed in encapsulation and decapsulation of headers + fragmentation and reassembly etc etc</p>
+<p>In our simulation, we implement dynamic update on channel_capacity that changes the channel capacity which changes the transmission delay and keep 
+the propagation delay fixed</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forwards the packet into the next router and add transmission delay</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel.update_ur">
+<span class="sig-name descname"><span class="pre">update_ur</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel.update_ur" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function updates the channel utilization rate</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ForwarderDevice">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ForwarderDevice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qlimit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_bytes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ForwarderDevice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">envs.simpy_env.SimComponentsDynamic.SwitchPort</span></code></p>
+<p>This is the ForwarderDevice class acting as the router</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ForwarderDevice.change_receiver">
+<span class="sig-name descname"><span class="pre">change_receiver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_receiver</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ForwarderDevice.change_receiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function re-routes or update the routing table in the forwarder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>new_receiver</strong> (<em>str</em>) – the next hop router selected</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ForwarderDevice.forwarderProcess">
+<span class="sig-name descname"><span class="pre">forwarderProcess</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ForwarderDevice.forwarderProcess" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function forwards the packet i.e. receives packet from incoming channel and forwards to the out-going channel
+Here it also checks the queue limit and takes the processing time.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ForwarderDevice.update_router_queue">
+<span class="sig-name descname"><span class="pre">update_router_queue</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ForwarderDevice.update_router_queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function updates the available queue size in the router</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ReceiverDevice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simpyenv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gymenv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_arrivals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absolute_arrivals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_waits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter" title="CyberWithChannelEnvSB_123_Experimentation.Interpreter"><code class="xref py py-class docutils literal notranslate"><span class="pre">CyberWithChannelEnvSB_123_Experimentation.Interpreter</span></code></a></p>
+<p>This is the ReceiverDevice class acting as the Data Aggregator/ DSO (Distribution System Operator)</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice.getDone">
+<span class="sig-name descname"><span class="pre">getDone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice.getDone" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function obtains the status of the episode if the agent has reached the goal or not</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice.getInfo">
+<span class="sig-name descname"><span class="pre">getInfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice.getInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code> providing additional information on the
+environment’s state that may be useful for debugging but is not allowed
+to be used by a learning agent.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice.getObservation">
+<span class="sig-name descname"><span class="pre">getObservation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice.getObservation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function obtains the system state</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice.getReward">
+<span class="sig-name descname"><span class="pre">getReward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice.getReward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Will depend on the percentage of successfully packet received (WE WILL FURTHER incorprorate other resilience metric)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function process the receiver packets from all the Data Concentrator of each zone</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.ReceiverDevice.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is invoked when the environment is reset – override it with
+your initialization tasks if you feel like it.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.SenderDevice">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SenderDevice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sdist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finish</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flow_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">packet_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.SenderDevice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">envs.simpy_env.SimComponentsDynamic.PacketGenerator</span></code></p>
+<p>This is the SenderDevice class acting as the data concentrator that collects data from the smart meter within a zone and forward to the DSO</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.SenderDevice.sendCommand">
+<span class="sig-name descname"><span class="pre">sendCommand</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.SenderDevice.sendCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the process to send command generated based on the switching control action created in the distribution feeder</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.SenderDevice.senderProcess">
+<span class="sig-name descname"><span class="pre">senderProcess</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.SenderDevice.senderProcess" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the process to send the monitoring packet</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.WiredChannel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WiredChannel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.WiredChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel" title="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel"><code class="xref py py-class docutils literal notranslate"><span class="pre">CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.WiredChannel.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.WiredChannel.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.WirelessChannel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WirelessChannel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.WirelessChannel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel" title="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel"><code class="xref py py-class docutils literal notranslate"><span class="pre">CyberWithChannelEnvSB_123_Experimentation.CyberEnv.Channel</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.WirelessChannel.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.WirelessChannel.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.reinitialize_complex_network">
+<span class="sig-name descname"><span class="pre">reinitialize_complex_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">G</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.reinitialize_complex_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function re-initialize the larger network for the IEEE 123 distribution feeder every time the episode starts</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.reinitialize_network">
+<span class="sig-name descname"><span class="pre">reinitialize_network</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.reinitialize_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function re-initialize the network every time the episode starts</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'human'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders the environment to stdout.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the state of the environment and returns an initial observation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result={}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pc_queue=&lt;queue.Queue</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cp_queue=&lt;queue.Queue</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function executes the selected action on the environment. In this environment the action are selection of the router and the next hop router to forward. Unless</p>
+<p>action: The selected router and its interface selected for forwarding
+result: for storing the results
+pc_queue : queue used to forward physical env information to communication env
+cp_queue : queue used to forward cyber env information to physical env</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.CyberEnv.threat_model">
+<span class="sig-name descname"><span class="pre">threat_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.CyberEnv.threat_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function incorporates the threat model</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.Interpreter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CyberWithChannelEnvSB_123_Experimentation.</span></span><span class="sig-name descname"><span class="pre">Interpreter</span></span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>An <a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter" title="CyberWithChannelEnvSB_123_Experimentation.Interpreter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interpreter</span></code></a> is an instance that observes the system’s behavior
+by sniffing the packets received by the receiver and infers
+observations and rewards.
+This class serves as an abstract base class for all <a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter" title="CyberWithChannelEnvSB_123_Experimentation.Interpreter"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interpreter</span></code></a>
+implementations.
+When implementing an interpreter, the following three methods have to be
+overridden:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.getReward" title="CyberWithChannelEnvSB_123_Experimentation.Interpreter.getReward"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getReward()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.getObservation" title="CyberWithChannelEnvSB_123_Experimentation.Interpreter.getObservation"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getObservation()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+<p>The following methods provide default implementations that you might also
+want to override depending on your use case:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.reset" title="CyberWithChannelEnvSB_123_Experimentation.Interpreter.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.getDone" title="CyberWithChannelEnvSB_123_Experimentation.Interpreter.getDone"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getDone()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.getInfo" title="CyberWithChannelEnvSB_123_Experimentation.Interpreter.getInfo"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getInfo()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.Interpreter.getDone">
+<span class="sig-name descname"><span class="pre">getDone</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.getDone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether an episode has ended.
+Note:</p>
+<blockquote>
+<div><p>Reinforcement learning problems do not have to be split into
+episodes. In this case, you do not have to override the default
+implementation as it always returns <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.Interpreter.getFeedback">
+<span class="sig-name descname"><span class="pre">getFeedback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.getFeedback" title="Permalink to this definition">¶</a></dt>
+<dd><p>You may want to call this at the end of a frequency band assignment to get
+feedback for your learning agent. The return values are ordered like
+they need to be returned by the <code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code> method of a gym
+environment.
+Returns:</p>
+<blockquote>
+<div><p>A 4-tuple with the results of <a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.getObservation" title="CyberWithChannelEnvSB_123_Experimentation.Interpreter.getObservation"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getObservation()</span></code></a>,
+<a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.getReward" title="CyberWithChannelEnvSB_123_Experimentation.Interpreter.getReward"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getReward()</span></code></a>, <a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.getDone" title="CyberWithChannelEnvSB_123_Experimentation.Interpreter.getDone"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getDone()</span></code></a>, and <a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.getInfo" title="CyberWithChannelEnvSB_123_Experimentation.Interpreter.getInfo"><code class="xref py py-meth docutils literal notranslate"><span class="pre">getInfo()</span></code></a></p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.Interpreter.getInfo">
+<span class="sig-name descname"><span class="pre">getInfo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.getInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code> providing additional information on the
+environment’s state that may be useful for debugging but is not allowed
+to be used by a learning agent.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.Interpreter.getObservation">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getObservation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.getObservation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an observation of the system’s state.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.Interpreter.getReward">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">getReward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.getReward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a reward that depends on the last channel assignment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.Interpreter.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.Interpreter.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is invoked when the environment is reset – override it with
+your initialization tasks if you feel like it.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.Message">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CyberWithChannelEnvSB_123_Experimentation.</span></span><span class="sig-name descname"><span class="pre">Message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">enum.Enum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.Message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class used for the exchange of arbitrary messages between components.
+A <a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Message" title="CyberWithChannelEnvSB_123_Experimentation.Message"><code class="xref py py-class docutils literal notranslate"><span class="pre">Message</span></code></a> can be used to simulate both asynchronous and synchronous function
+calls.
+Attributes:</p>
+<blockquote>
+<div><p>type(Enum): An enumeration object that defines the message type
+args(Dict[str, Any]): A dictionary containing the message’s arguments
+eProcessed(Event): A SimPy event that is triggered when</p>
+<blockquote>
+<div><p><a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Message.setProcessed" title="CyberWithChannelEnvSB_123_Experimentation.Message.setProcessed"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setProcessed()</span></code></a> is called. This is useful for simulating
+synchronous function calls and also allows for return values (an
+example is provided in <a class="reference internal" href="#CyberWithChannelEnvSB_123_Experimentation.Message.setProcessed" title="CyberWithChannelEnvSB_123_Experimentation.Message.setProcessed"><code class="xref py py-meth docutils literal notranslate"><span class="pre">setProcessed()</span></code></a>).</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.Message.setProcessed">
+<span class="sig-name descname"><span class="pre">setProcessed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">returnValue</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.Message.setProcessed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes the <code class="xref py py-attr docutils literal notranslate"><span class="pre">eProcessed</span></code> event succeed.
+Args:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>returnValue: If specified, will be used as the <cite>value</cite> of the</dt><dd><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">eProcessed</span></code> event.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>Examples:</dt><dd><p>If <cite>returnValue</cite> is specified, SimPy processes can use Signals for
+simulating synchronous function calls with return values like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">signal</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="n">myType</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">})</span>
+<span class="n">gate</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">signal</span><span class="p">)</span>
+<span class="n">value</span> <span class="o">=</span> <span class="k">yield</span> <span class="n">signal</span><span class="o">.</span><span class="n">eProcessed</span>
+<span class="c1"># value now contains the returnValue that setProcessed() was called with</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.StackMessageTypes">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CyberWithChannelEnvSB_123_Experimentation.</span></span><span class="sig-name descname"><span class="pre">StackMessageTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.StackMessageTypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration of control message types to be used for the exchange of
+<cite>Message</cite> objects between network stack layers.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.StackMessageTypes.ASSIGN">
+<span class="sig-name descname"><span class="pre">ASSIGN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.StackMessageTypes.ASSIGN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.StackMessageTypes.RECEIVE">
+<span class="sig-name descname"><span class="pre">RECEIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.StackMessageTypes.RECEIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.StackMessageTypes.SEND">
+<span class="sig-name descname"><span class="pre">SEND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.StackMessageTypes.SEND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.constArrival">
+<span class="sig-prename descclassname"><span class="pre">CyberWithChannelEnvSB_123_Experimentation.</span></span><span class="sig-name descname"><span class="pre">constArrival</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.constArrival" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constant arrival rate of the packet</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.constArrival2">
+<span class="sig-prename descclassname"><span class="pre">CyberWithChannelEnvSB_123_Experimentation.</span></span><span class="sig-name descname"><span class="pre">constArrival2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.constArrival2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.constSize">
+<span class="sig-prename descclassname"><span class="pre">CyberWithChannelEnvSB_123_Experimentation.</span></span><span class="sig-name descname"><span class="pre">constSize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.constSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constant packet size</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CyberWithChannelEnvSB_123_Experimentation.constSize2">
+<span class="sig-prename descclassname"><span class="pre">CyberWithChannelEnvSB_123_Experimentation.</span></span><span class="sig-name descname"><span class="pre">constSize2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CyberWithChannelEnvSB_123_Experimentation.constSize2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">SimPy Cyber RL Env</a><ul>
+<li><a class="reference internal" href="#components">Components</a></li>
+<li><a class="reference internal" href="#forwarder-device">Forwarder Device</a></li>
+<li><a class="reference internal" href="#channel">Channel</a></li>
+<li><a class="reference internal" href="#data-concentrator-dc">Data Concentrator (DC)</a></li>
+<li><a class="reference internal" href="#distribution-system-operator-dso-data-aggregator-da">Distribution System Operator (DSO) / Data Aggregator (DA)</a></li>
+<li><a class="reference internal" href="#module-CyberWithChannelEnvSB_123_Experimentation">Classes and Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="generate_scenario.html"
+                          title="previous chapter">OpenDSS Backend APIs</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="SimpyCyberEnvTest.html"
+                          title="next chapter">SimPy Cyber RL Env Test</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/CyberWithChannelEnvSB_123_Experimentation.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="SimpyCyberEnvTest.html" title="SimPy Cyber RL Env Test"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="generate_scenario.html" title="OpenDSS Backend APIs"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SimPy Cyber RL Env</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,7 @@
+miniNetenv module
+=================
+
+.. automodule:: miniNetenv
+   :members:
+   :undoc-members:
+   :show-inheritance:

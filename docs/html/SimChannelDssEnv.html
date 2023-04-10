@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>SimChannelDssEnv module &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SimChannelDssEnv module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-SimChannelDssEnv">
+<span id="simchanneldssenv-module"></span><h1>SimChannelDssEnv module<a class="headerlink" href="#module-SimChannelDssEnv" title="Permalink to this headline">¶</a></h1>
+<p>Created on Fri July 1 09:17:05 2022</p>
+<p>&#64;author: abhijeetsahu</p>
+<p>This environment would merge both Simpy and OpenDSS environment.. Current implementation is a dummy merge..Still need to update</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="SimChannelDssEnv.CyberPhysicalEnvDummy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimChannelDssEnv.</span></span><span class="sig-name descname"><span class="pre">CyberPhysicalEnvDummy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cenv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compzones</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimChannelDssEnv.CyberPhysicalEnvDummy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimChannelDssEnv.CyberPhysicalEnvDummy.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SimChannelDssEnv.CyberPhysicalEnvDummy.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SimChannelDssEnv.CyberPhysicalEnvDummy.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimChannelDssEnv.CyberPhysicalEnvDummy.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimChannelDssEnv.CyberPhysicalEnvMT">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimChannelDssEnv.</span></span><span class="sig-name descname"><span class="pre">CyberPhysicalEnvMT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cenv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp_zones</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimChannelDssEnv.CyberPhysicalEnvMT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimChannelDssEnv.CyberPhysicalEnvMT.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SimChannelDssEnv.CyberPhysicalEnvMT.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SimChannelDssEnv.CyberPhysicalEnvMT.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimChannelDssEnv.CyberPhysicalEnvMT.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SimChannelDssEnv.CyberPhysicalMapping">
+<span class="sig-prename descclassname"><span class="pre">SimChannelDssEnv.</span></span><span class="sig-name descname"><span class="pre">CyberPhysicalMapping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SimChannelDssEnv.CyberPhysicalMapping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/SimChannelDssEnv.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SimChannelDssEnv module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

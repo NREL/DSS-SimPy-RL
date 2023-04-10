@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Generative Adversarial Imitation Learning on Re-routing &amp; N/W reconfiguration &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="DAgger Imitation Learning on N/W reconfiguration" href="phy_train_dagger.html" />
+    <link rel="prev" title="GAIL on N/W reconfiguration" href="phy_train_gail.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="phy_train_dagger.html" title="DAgger Imitation Learning on N/W reconfiguration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="phy_train_gail.html" title="GAIL on N/W reconfiguration"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Generative Adversarial Imitation Learning on Re-routing &amp; N/W reconfiguration</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="generative-adversarial-imitation-learning-on-re-routing-n-w-reconfiguration">
+<h1>Generative Adversarial Imitation Learning on Re-routing &amp; N/W reconfiguration<a class="headerlink" href="#generative-adversarial-imitation-learning-on-re-routing-n-w-reconfiguration" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-cps_train_gail"></span><dl class="py function">
+<dt class="sig sig-object py" id="cps_train_gail.evaluate_policy">
+<span class="sig-prename descclassname"><span class="pre">cps_train_gail.</span></span><span class="sig-name descname"><span class="pre">evaluate_policy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cpenv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cps_train_gail.evaluate_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluating the learned policy by running experiments in the environment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cpenv</strong> (<em>Gym.Env</em>) – The cyber-physical RL environment</p></li>
+<li><p><strong>model</strong> (<em>torch.nn.Module</em>) – Trained policy network model</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>average episode length, average reward</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cps_train_gail.train_and_evaluate">
+<span class="sig-prename descclassname"><span class="pre">cps_train_gail.</span></span><span class="sig-name descname"><span class="pre">train_and_evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comp_zones</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exp_tajectories</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_bws</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">router_qlimits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">policy_net_train_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gail_train_len</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cps_train_gail.train_and_evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>For different combination of channel bandwidths, router queue limits and expert demonstrations, train and test the policy and saves the results, reward and policy network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>comp_zones</strong> (<em>dict</em>) – Cyber Physical mapping information.</p></li>
+<li><p><strong>exp_tajectories</strong> (<em>list</em>) – List of the number of expert demonstrations steps considered for GAIL training</p></li>
+<li><p><strong>channel_bws</strong> (<em>list</em>) – List of the channel bandwidths value considered in the communication network</p></li>
+<li><p><strong>router_qlimits</strong> (<em>list</em>) – List of the router queue upper bound considered in the network</p></li>
+<li><p><strong>policy_net_train_len</strong> (<em>int</em>) – Samples considered for training the policy network fed in the generator network as initial policy</p></li>
+<li><p><strong>gail_train_len</strong> (<em>int</em>) – Samples considered for training GAIL network</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Nothing</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="phy_train_gail.html"
+                          title="previous chapter">GAIL on N/W reconfiguration</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="phy_train_dagger.html"
+                          title="next chapter">DAgger Imitation Learning on N/W reconfiguration</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/cps_train_gail.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="phy_train_dagger.html" title="DAgger Imitation Learning on N/W reconfiguration"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="phy_train_gail.html" title="GAIL on N/W reconfiguration"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Generative Adversarial Imitation Learning on Re-routing &amp; N/W reconfiguration</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

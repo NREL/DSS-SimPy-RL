@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>SimPyDSS RL Env Test &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="OpenDSS RL Env GUI" href="OpenDssEnvVisual.html" />
+    <link rel="prev" title="OpenDSS RL Env Test" href="OpenDssEnvTest.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="OpenDssEnvVisual.html" title="OpenDSS RL Env GUI"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="OpenDssEnvTest.html" title="OpenDSS RL Env Test"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SimPyDSS RL Env Test</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="simpydss-rl-env-test">
+<h1>SimPyDSS RL Env Test<a class="headerlink" href="#simpydss-rl-env-test" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="_images/Episode_Steps.PNG"><img alt="Alternate text" src="_images/Episode_Steps.PNG" style="width: 400px;" /></a>
+<p>Steps in an episode created in the cyber-physical RL Environment. The interconnection in blue indicates the communication between the Simpy and Open DSS simulators.
+<strong>1</strong> indicates the passage of physical-side information to cyber network for determining the packet size.
+<strong>2</strong> indicates the passage of cyber and physical contingency to each others environment. Currently a physical fault adds an event in cyber emulator to generate a fault information to send to the aggregator.
+<strong>3</strong> indicates the merge of the cyber and physical state information to feed to the RL algorithm or the Agent.
+<strong>4</strong> Based on the policy, implement the action by segregating respective action of routing policy and control of sectionalizing switch.
+<strong>5</strong> Evaluating the goal $G_P$ and $G_C$ for terminating the episode when both goals are reached.</p>
+<section id="module-CPEnv_DiscreteDSS_RtrDropRate">
+<span id="classes-and-functions"></span><h2>Classes and Functions<a class="headerlink" href="#module-CPEnv_DiscreteDSS_RtrDropRate" title="Permalink to this headline">¶</a></h2>
+<p>Created on Fri July 31 09:17:05 2022</p>
+<p>&#64;author: abhijeetsahu</p>
+<p>This environment would merge both Simpy and OpenDSS environment.. Current implementation is a dummy merge..Still need to update</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalEnvDummy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CPEnv_DiscreteDSS_RtrDropRate.</span></span><span class="sig-name descname"><span class="pre">CyberPhysicalEnvDummy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cenv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compzones</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalEnvDummy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>CyberPhysical combined RL environment with sequential interaction with each environment</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalEnvDummy.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalEnvDummy.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalEnvDummy.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalEnvDummy.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalEnvMT">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">CPEnv_DiscreteDSS_RtrDropRate.</span></span><span class="sig-name descname"><span class="pre">CyberPhysicalEnvMT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cenv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp_zones</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalEnvMT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gym.core.Env</span></code></p>
+<p>CyberPhysical combined RL environment with Multi-Threads</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalEnvMT.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalEnvMT.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the environment to an initial state and returns an initial
+observation.</p>
+<p>Note that this function should not reset the environment’s random
+number generator(s); random variables in the environment’s state should
+be sampled independently between multiple calls to <cite>reset()</cite>. In other
+words, each call of <cite>reset()</cite> should yield an environment suitable for
+a new episode, independent of previous episodes.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>observation (object): the initial observation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalEnvMT.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalEnvMT.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run one timestep of the environment’s dynamics. When end of
+episode is reached, you are responsible for calling <cite>reset()</cite>
+to reset this environment’s state.</p>
+<p>Accepts an action and returns a tuple (observation, reward, done, info).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>action (object): an action provided by the agent</p>
+</dd>
+<dt>Returns:</dt><dd><p>observation (object): agent’s observation of the current environment
+reward (float) : amount of reward returned after previous action
+done (bool): whether the episode has ended, in which case further step() calls will return undefined results
+info (dict): contains auxiliary diagnostic information (helpful for debugging, and sometimes learning)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalMapping">
+<span class="sig-prename descclassname"><span class="pre">CPEnv_DiscreteDSS_RtrDropRate.</span></span><span class="sig-name descname"><span class="pre">CyberPhysicalMapping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CPEnv_DiscreteDSS_RtrDropRate.CyberPhysicalMapping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">SimPyDSS RL Env Test</a><ul>
+<li><a class="reference internal" href="#module-CPEnv_DiscreteDSS_RtrDropRate">Classes and Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="OpenDssEnvTest.html"
+                          title="previous chapter">OpenDSS RL Env Test</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="OpenDssEnvVisual.html"
+                          title="next chapter">OpenDSS RL Env GUI</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/CPEnv_DiscreteDSS_RtrDropRate.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="OpenDssEnvVisual.html" title="OpenDSS RL Env GUI"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="OpenDssEnvTest.html" title="OpenDSS RL Env Test"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SimPyDSS RL Env Test</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

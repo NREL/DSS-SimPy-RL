@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>logger module &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">logger module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-logger">
+<span id="logger-module"></span><h1>logger module<a class="headerlink" href="#module-logger" title="Permalink to this headline">¶</a></h1>
+<p>Logging for quantitative metrics and free-form text.
+Code adopted from <a class="reference external" href="https://github.com/HumanCompatibleAI/imitation.git">https://github.com/HumanCompatibleAI/imitation.git</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="logger.HierarchicalLogger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">logger.</span></span><span class="sig-name descname"><span class="pre">HierarchicalLogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stable_baselines3.common.logger.Logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format_strs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('stdout',</span> <span class="pre">'log',</span> <span class="pre">'csv')</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#logger.HierarchicalLogger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">stable_baselines3.common.logger.Logger</span></code></p>
+<p>A logger supporting contexts for accumulating mean values.</p>
+<p><cite>self.accumulate_means</cite> creates a context manager. While in this context,
+values are loggged to a sub-logger, with only mean values recorded in the
+top-level (root) logger.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="logger.HierarchicalLogger.accumulate_means">
+<span class="sig-name descname"><span class="pre">accumulate_means</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subdir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#logger.HierarchicalLogger.accumulate_means" title="Permalink to this definition">¶</a></dt>
+<dd><p>Temporarily modifies this HierarchicalLogger to accumulate means values.</p>
+<p>During this context, <cite>self.record(key, value)</cite> writes the “raw” values in
+“{self.default_logger.log_dir}/{subdir}” under the key “raw/{subdir}/{key}”.
+At the same time, any call to <cite>self.record</cite> will also accumulate mean values
+on the default logger by calling
+<cite>self.default_logger.record_mean(f”mean/{subdir}/{key}”, value)</cite>.</p>
+<p>During the context, <cite>self.record(key, value)</cite> will write the “raw” values in
+<cite>“{self.default_logger.log_dir}/subdir”</cite> under the key “raw/{subdir}/key”.</p>
+<p>After the context exits, calling <cite>self.dump()</cite> will write the means
+of all the “raw” values accumulated during this context to
+<cite>self.default_logger</cite> under keys with the prefix <cite>mean/{subdir}/</cite></p>
+<p>Note that the behavior of other logging methods, <cite>log</cite> and <cite>record_mean</cite>
+are unmodified and will go straight to the default logger.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>subdir: A string key which determines the <cite>folder</cite> where raw data is</dt><dd><p>written and temporary logging prefixes for raw and mean data. Entering
+an <cite>accumulate_means</cite> context in the future with the same <cite>subdir</cite>
+will safely append to logs written in this folder rather than
+overwrite.</p>
+</dd>
+</dl>
+</dd>
+<dt>Yields:</dt><dd><p>None when the context is entered.</p>
+</dd>
+<dt>Raises:</dt><dd><dl class="simple">
+<dt>RuntimeError: If this context is entered into while already in</dt><dd><p>an <cite>accumulate_means</cite> context.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="logger.HierarchicalLogger.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#logger.HierarchicalLogger.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>closes the file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="logger.HierarchicalLogger.dump">
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#logger.HierarchicalLogger.dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write all of the diagnostics from the current iteration</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="logger.HierarchicalLogger.get_dir">
+<span class="sig-name descname"><span class="pre">get_dir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#logger.HierarchicalLogger.get_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get directory that log files are being written to.
+will be None if there is no output directory (i.e., if you didn’t call start)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the logging directory</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="logger.HierarchicalLogger.log">
+<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#logger.HierarchicalLogger.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the sequence of args, with no separators,
+to the console and output files (if you’ve configured an output file).</p>
+<dl class="simple">
+<dt>level: int. (see logger.py docs) If the global logger level is higher than</dt><dd><p>the level argument here, don’t print to stdout.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – log the arguments</p></li>
+<li><p><strong>level</strong> – the logging level (can be DEBUG=10, INFO=20, WARN=30, ERROR=40, DISABLED=50)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="logger.HierarchicalLogger.record">
+<span class="sig-name descname"><span class="pre">record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#logger.HierarchicalLogger.record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log a value of some diagnostic
+Call this once for each diagnostic quantity, each iteration
+If called many times, last value will be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – save to log this key</p></li>
+<li><p><strong>value</strong> – save to log this value</p></li>
+<li><p><strong>exclude</strong> – outputs to be excluded</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="logger.HierarchicalLogger.record_mean">
+<span class="sig-name descname"><span class="pre">record_mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#logger.HierarchicalLogger.record_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>The same as record(), but if called many times, values averaged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – save to log this key</p></li>
+<li><p><strong>value</strong> – save to log this value</p></li>
+<li><p><strong>exclude</strong> – outputs to be excluded</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="logger.HierarchicalLogger.set_level">
+<span class="sig-name descname"><span class="pre">set_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#logger.HierarchicalLogger.set_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set logging threshold on current logger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>level</strong> – the logging level (can be DEBUG=10, INFO=20, WARN=30, ERROR=40, DISABLED=50)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="logger.WandbOutputFormat">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">logger.</span></span><span class="sig-name descname"><span class="pre">WandbOutputFormat</span></span><a class="headerlink" href="#logger.WandbOutputFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">stable_baselines3.common.logger.KVWriter</span></code></p>
+<p>A stable-baseline logger that writes to wandb.</p>
+<p>Users need to call <cite>wandb.init()</cite> before initializing <cite>WandbOutputFormat</cite>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="logger.WandbOutputFormat.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#logger.WandbOutputFormat.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close owned resources</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="logger.WandbOutputFormat.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_excluded</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#logger.WandbOutputFormat.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a dictionary to file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key_values</strong> – </p></li>
+<li><p><strong>key_excluded</strong> – </p></li>
+<li><p><strong>step</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="logger.configure">
+<span class="sig-prename descclassname"><span class="pre">logger.</span></span><span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format_strs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#logger.HierarchicalLogger" title="logger.HierarchicalLogger"><span class="pre">logger.HierarchicalLogger</span></a></span></span><a class="headerlink" href="#logger.configure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure Stable Baselines logger to be <cite>accumulate_means()</cite>-compatible.</p>
+<p>After this function is called, <cite>stable_baselines3.logger.{configure,reset}()</cite>
+are replaced with stubs that raise RuntimeError.</p>
+<dl>
+<dt>Args:</dt><dd><p>folder: Argument from <cite>stable_baselines3.logger.configure</cite>.
+format_strs: An list of output format strings. For details on available</p>
+<blockquote>
+<div><p>output formats see <cite>stable_baselines3.logger.make_output_format</cite>.</p>
+</div></blockquote>
+</dd>
+<dt>Returns:</dt><dd><p>The configured HierarchicalLogger instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/logger.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">logger module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

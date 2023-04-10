@@ -1,0 +1,479 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>SimComponentsDynamic module &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SimComponentsDynamic module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-SimComponentsDynamic">
+<span id="simcomponentsdynamic-module"></span><h1>SimComponentsDynamic module<a class="headerlink" href="#module-SimComponentsDynamic" title="Permalink to this headline">¶</a></h1>
+<p>A bit more detailed set of components to use in packet switching
+queueing experiments.
+Copyright 2014 Greg M. Bernstein
+Released under the MIT license</p>
+<p>Created on Thu Jun 16 14:42:05 2022</p>
+<p>&#64;author: abhijeetsahu</p>
+<p>Modified the SwitchPort class to redirect traffic: basic testing done</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.Firewall">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">Firewall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qlimit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_bytes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.Firewall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#SimComponentsDynamic.SwitchPort" title="SimComponentsDynamic.SwitchPort"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimComponentsDynamic.SwitchPort</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.Firewall.change_policy">
+<span class="sig-name descname"><span class="pre">change_policy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.Firewall.change_policy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.FlowDemux">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">FlowDemux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.FlowDemux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A demultiplexing element that splits packet streams by flow_id.</p>
+<p>Contains a list of output ports of the same length as the probability list
+in the constructor.  Use these to connect to other network elements.</p>
+<dl class="simple">
+<dt>outs<span class="classifier">List</span></dt><dd><p>list of probabilities for the corresponding output ports</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.FlowDemux.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.FlowDemux.put" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.Packet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">Packet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'a'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flow_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.Packet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A very simple class that represents a packet.
+This packet will run through a queue at a switch output port.
+We use a float to represent the size of the packet in bytes so that
+we can compare to ideal M/M/1 queues.</p>
+<dl class="simple">
+<dt>time<span class="classifier">float</span></dt><dd><p>the time the packet arrives at the output queue.</p>
+</dd>
+<dt>size<span class="classifier">float</span></dt><dd><p>the size of the packet in bytes</p>
+</dd>
+<dt>id<span class="classifier">int</span></dt><dd><p>an identifier for the packet</p>
+</dd>
+<dt>src, dst<span class="classifier">int</span></dt><dd><p>identifiers for source and destination</p>
+</dd>
+<dt>flow_id<span class="classifier">int</span></dt><dd><p>small integer that can be used to identify a flow</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.PacketGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">PacketGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sdist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">finish</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flow_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.PacketGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Generates packets with given inter-arrival time distribution.
+Set the “out” member variable to the entity to receive the packet.</p>
+<dl class="simple">
+<dt>env<span class="classifier">simpy.Environment</span></dt><dd><p>the simulation environment</p>
+</dd>
+<dt>adist<span class="classifier">function</span></dt><dd><p>a no parameter function that returns the successive inter-arrival times of the packets</p>
+</dd>
+<dt>sdist<span class="classifier">function</span></dt><dd><p>a no parameter function that returns the successive sizes of the packets</p>
+</dd>
+<dt>initial_delay<span class="classifier">number</span></dt><dd><p>Starts generation after an initial delay. Default = 0</p>
+</dd>
+<dt>finish<span class="classifier">number</span></dt><dd><p>Stops generation at the finish time. Default is infinite</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.PacketGenerator.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.PacketGenerator.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>The generator function used in simulations.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.PacketSink">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">PacketSink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_arrivals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absolute_arrivals</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rec_waits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.PacketSink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Receives packets and collects delay information into the
+waits list. You can then use this list to look at delay statistics.</p>
+<dl class="simple">
+<dt>env<span class="classifier">simpy.Environment</span></dt><dd><p>the simulation environment</p>
+</dd>
+<dt>debug<span class="classifier">boolean</span></dt><dd><p>if true then the contents of each packet will be printed as it is received.</p>
+</dd>
+<dt>rec_arrivals<span class="classifier">boolean</span></dt><dd><p>if true then arrivals will be recorded</p>
+</dd>
+<dt>absolute_arrivals<span class="classifier">boolean</span></dt><dd><p>if true absolute arrival times will be recorded, otherwise the time between consecutive arrivals
+is recorded.</p>
+</dd>
+<dt>rec_waits<span class="classifier">boolean</span></dt><dd><p>if true waiting time experienced by each packet is recorded</p>
+</dd>
+<dt>selector: a function that takes a packet and returns a boolean</dt><dd><p>used for selective statistics. Default none.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.PacketSink.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.PacketSink.put" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.PortMonitor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">PortMonitor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count_bytes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.PortMonitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A monitor for an SwitchPort. Looks at the number of items in the SwitchPort
+in service + in the queue and records that info in the sizes[] list. The
+monitor looks at the port at time intervals given by the distribution dist.</p>
+<dl class="simple">
+<dt>env<span class="classifier">simpy.Environment</span></dt><dd><p>the simulation environment</p>
+</dd>
+<dt>port<span class="classifier">SwitchPort</span></dt><dd><p>the switch port object to be monitored.</p>
+</dd>
+<dt>dist<span class="classifier">function</span></dt><dd><p>a no parameter function that returns the successive inter-arrival times of the
+packets</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.PortMonitor.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.PortMonitor.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.RandomBrancher">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">RandomBrancher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.RandomBrancher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A demultiplexing element that chooses the output port at random.</p>
+<p>Contains a list of output ports of the same length as the probability list
+in the constructor.  Use these to connect to other network elements.</p>
+<dl class="simple">
+<dt>env<span class="classifier">simpy.Environment</span></dt><dd><p>the simulation environment</p>
+</dd>
+<dt>probs<span class="classifier">List</span></dt><dd><p>list of probabilities for the corresponding output ports</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.RandomBrancher.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.RandomBrancher.put" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.Router">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">Router</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qlimit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_bytes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.Router" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#SimComponentsDynamic.SwitchPort" title="SimComponentsDynamic.SwitchPort"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimComponentsDynamic.SwitchPort</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.Router.event2">
+<span class="sig-name descname"><span class="pre">event2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.Router.event2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.Router.exec_action">
+<span class="sig-name descname"><span class="pre">exec_action</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.Router.exec_action" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.Router.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.Router.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.ShaperTokenBucket">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">ShaperTokenBucket</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.ShaperTokenBucket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Models an ideal token bucket shaper. Note the token bucket size should be greater than the
+size of the largest packet that can occur on input. If this is not the case we always accumulate
+enough tokens to let the current packet pass based on the average rate. This may not be
+the behavior you desire.</p>
+<dl class="simple">
+<dt>env<span class="classifier">simpy.Environment</span></dt><dd><p>the simulation environment</p>
+</dd>
+<dt>rate<span class="classifier">float</span></dt><dd><p>the token arrival rate in bits</p>
+</dd>
+<dt>b_size<span class="classifier">Number</span></dt><dd><p>a token bucket size in bytes</p>
+</dd>
+<dt>peak<span class="classifier">Number or None for infinite peak</span></dt><dd><p>the peak sending rate of the buffer (quickest time two packets could be sent)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.ShaperTokenBucket.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.ShaperTokenBucket.put" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.ShaperTokenBucket.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.ShaperTokenBucket.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.SnoopSplitter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">SnoopSplitter</span></span><a class="headerlink" href="#SimComponentsDynamic.SnoopSplitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A snoop port like splitter. Sends the original packet out port 1
+and sends a copy of the packet out port 2.</p>
+<p>You need to set the values of out1 and out2.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.SnoopSplitter.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.SnoopSplitter.put" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.StampedStore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">StampedStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.StampedStore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">simpy.resources.base.BaseResource</span></code></p>
+<p>Models the production and consumption of concrete Python objects.</p>
+<p>Items put into the store can be of any type.  By default, they are put and
+retrieved from the store in a first-in first-out order.</p>
+<p>The <em>env</em> parameter is the <code class="xref py py-class docutils literal notranslate"><span class="pre">Environment</span></code> instance the
+container is bound to.</p>
+<p>The <em>capacity</em> defines the size of the Store and must be a positive number
+(&gt; 0). By default, a Store is of unlimited size. A <code class="xref py py-exc docutils literal notranslate"><span class="pre">ValueError</span></code> is
+raised if the value is negative.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="SimComponentsDynamic.StampedStore.capacity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">capacity</span></span><a class="headerlink" href="#SimComponentsDynamic.StampedStore.capacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum capacity of the store.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SimComponentsDynamic.StampedStore.event_count">
+<span class="sig-name descname"><span class="pre">event_count</span></span><a class="headerlink" href="#SimComponentsDynamic.StampedStore.event_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of the items within the store.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SimComponentsDynamic.StampedStore.get">
+<span class="sig-name descname"><span class="pre">get</span></span><a class="headerlink" href="#SimComponentsDynamic.StampedStore.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new <code class="xref py py-class docutils literal notranslate"><span class="pre">StoreGet</span></code> event.</p>
+<p>alias of <a class="reference internal" href="#SimComponentsDynamic.StampedStoreGet" title="SimComponentsDynamic.StampedStoreGet"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimComponentsDynamic.StampedStoreGet</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SimComponentsDynamic.StampedStore.put">
+<span class="sig-name descname"><span class="pre">put</span></span><a class="headerlink" href="#SimComponentsDynamic.StampedStore.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new <code class="xref py py-class docutils literal notranslate"><span class="pre">StorePut</span></code> event.</p>
+<p>alias of <a class="reference internal" href="#SimComponentsDynamic.StampedStorePut" title="SimComponentsDynamic.StampedStorePut"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimComponentsDynamic.StampedStorePut</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.StampedStoreGet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">StampedStoreGet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ResourceType</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.StampedStoreGet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">simpy.resources.base.Get</span></code></p>
+<p>Get an item from the store or wait until one is available.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.StampedStorePut">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">StampedStorePut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.StampedStorePut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">simpy.resources.base.Put</span></code></p>
+<p>Put <em>item</em> into the store if possible or wait until it is.
+The item must be a tuple (stamp, contents) where the stamp is used to sort
+the content in the StampedStore.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SimComponentsDynamic.StampedStorePut.item">
+<span class="sig-name descname"><span class="pre">item</span></span><a class="headerlink" href="#SimComponentsDynamic.StampedStorePut.item" title="Permalink to this definition">¶</a></dt>
+<dd><p>The item to put into the store.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.SwitchPort">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">SwitchPort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qlimit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit_bytes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.SwitchPort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Models a switch output port with a given rate and buffer size limit in bytes.
+Set the “out” member variable to the entity to receive the packet.</p>
+<dl class="simple">
+<dt>env<span class="classifier">simpy.Environment</span></dt><dd><p>the simulation environment</p>
+</dd>
+<dt>rate<span class="classifier">float</span></dt><dd><p>the bit rate of the port</p>
+</dd>
+<dt>qlimit<span class="classifier">integer (or None)</span></dt><dd><p>a buffer size limit in bytes or packets for the queue (including items
+in service).</p>
+</dd>
+<dt>limit_bytes<span class="classifier">If true, the queue limit will be based on bytes if false the</span></dt><dd><p>queue limit will be based on packets.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.SwitchPort.change_receiver">
+<span class="sig-name descname"><span class="pre">change_receiver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_receiver</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.SwitchPort.change_receiver" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.SwitchPort.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.SwitchPort.put" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.SwitchPort.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.SwitchPort.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.TrTCM">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">TrTCM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.TrTCM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A Two rate three color marker. Uses the flow_id packet field to
+mark the packet with green = 0, yellow = 1, red = 2.</p>
+<p>env : the SimPy environment (so we can get the simulated time)
+pir : Peak Information Rate in units of bits (slighly different from RFC)
+pbs : Peak Burst Size in units of bytes
+cir : Committed Information Rate in units of bits (time part maybe scaled)
+cbs : Committed Burst Size in bytes</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.TrTCM.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.TrTCM.put" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.VirtualClockServer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">VirtualClockServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vticks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.VirtualClockServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Models a virtual clock server. For theory and implementation see:
+L. Zhang, Virtual clock: A new traffic control algorithm for packet switching networks,
+in ACM SIGCOMM Computer Communication Review, 1990, vol. 20, pp. 19.</p>
+<dl class="simple">
+<dt>env<span class="classifier">simpy.Environment</span></dt><dd><p>the simulation environment</p>
+</dd>
+<dt>rate<span class="classifier">float</span></dt><dd><p>the bit rate of the port</p>
+</dd>
+<dt>vticks<span class="classifier">A list</span></dt><dd><p>list of the vtick parameters (for each possible packet flow_id). We assume a simple assignment of
+flow id to vticks, i.e., flow_id = 0 corresponds to vticks[0], etc… We assume that the vticks are
+the inverse of the desired rates for the flows in bits per second.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.VirtualClockServer.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.VirtualClockServer.put" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.VirtualClockServer.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.VirtualClockServer.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SimComponentsDynamic.WFQServer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">SimComponentsDynamic.</span></span><span class="sig-name descname"><span class="pre">WFQServer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.WFQServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Models a WFQ/PGPS server. For theory and implementation see:</p>
+<dl class="simple">
+<dt>env<span class="classifier">simpy.Environment</span></dt><dd><p>the simulation environment</p>
+</dd>
+<dt>rate<span class="classifier">float</span></dt><dd><p>the bit rate of the port</p>
+</dd>
+<dt>phis<span class="classifier">A list</span></dt><dd><p>list of the phis parameters (for each possible packet flow_id). We assume a simple assignment of
+flow id to phis, i.e., flow_id = 0 corresponds to phis[0], etc…</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.WFQServer.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pkt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.WFQServer.put" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="SimComponentsDynamic.WFQServer.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SimComponentsDynamic.WFQServer.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/SimComponentsDynamic.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SimComponentsDynamic module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

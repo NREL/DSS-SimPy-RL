@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Graph-based Resilience Metrics &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="OpenDSS : Generate Expert Demonstrations" href="generate_expert_demonstrations_feeder.html" />
+    <link rel="prev" title="SimPy RL Env GUI" href="CyberEnvVisualNewNW.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="generate_expert_demonstrations_feeder.html" title="OpenDSS : Generate Expert Demonstrations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="CyberEnvVisualNewNW.html" title="SimPy RL Env GUI"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Graph-based Resilience Metrics</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="graph-based-resilience-metrics">
+<h1>Graph-based Resilience Metrics<a class="headerlink" href="#graph-based-resilience-metrics" title="Permalink to this headline">¶</a></h1>
+<section id="module-resilience_graphtheory">
+<span id="classes-and-functions"></span><h2>Classes and Functions<a class="headerlink" href="#module-resilience_graphtheory" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="resilience_graphtheory.GraphResilienceMetric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">resilience_graphtheory.</span></span><span class="sig-name descname"><span class="pre">GraphResilienceMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dss</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#resilience_graphtheory.GraphResilienceMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is the class for computing graph based resilience metric</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>_dss</strong> (<em>opendssdirect python object</em>) – The opendss object</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="resilience_graphtheory.GraphResilienceMetric.compute_bc">
+<span class="sig-name descname"><span class="pre">compute_bc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line_faults</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switches_on</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#resilience_graphtheory.GraphResilienceMetric.compute_bc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate Betweenness Centrality (BC) of network graph nodes.This function calculates the BC for the network topology given.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>dss python object</em>) – opendss network</p></li>
+<li><p><strong>line_faults</strong> (<em>list</em>) – List of line fault</p></li>
+<li><p><strong>switches_on</strong> (<em>list</em>) – List of sectionalizing switch that are operating</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>numpy array with BC values for each node/bus.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy_array (double)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="resilience_graphtheory.GraphResilienceMetric.compute_cl">
+<span class="sig-name descname"><span class="pre">compute_cl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line_faults</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switches_on</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#resilience_graphtheory.GraphResilienceMetric.compute_cl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate Closeness Centrality (CL) of network graph nodes.This function calculates the CL for the network topology given.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>dss python object</em>) – opendss network</p></li>
+<li><p><strong>line_faults</strong> (<em>list</em>) – List of line fault</p></li>
+<li><p><strong>switches_on</strong> (<em>list</em>) – List of sectionalizing switch that are operating</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>numpy array with CL values for each node/bus.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy_array (double)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="resilience_graphtheory.GraphResilienceMetric.compute_ebc">
+<span class="sig-name descname"><span class="pre">compute_ebc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line_faults</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switches_on</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#resilience_graphtheory.GraphResilienceMetric.compute_ebc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate Edge Betweenness Centrality (EBC) of network graph. This function calculates the EBC for the network topology  given.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>dss python object</em>) – opendss network</p></li>
+<li><p><strong>line_faults</strong> (<em>list</em>) – List of line fault</p></li>
+<li><p><strong>switches_on</strong> (<em>list</em>) – List of sectionalizing switch that are operating</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>numpy array with BC values for each node/bus. The max. EBC value for an edge connected to the respective node/bus.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy_array (double)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="resilience_graphtheory.GraphResilienceMetric.create_nxgraph">
+<span class="sig-name descname"><span class="pre">create_nxgraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line_faults</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switches_on</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#resilience_graphtheory.GraphResilienceMetric.create_nxgraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the Networkx graph</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>line_faults</strong> (<em>list</em>) – List of line fault</p></li>
+<li><p><strong>switches_on</strong> (<em>list</em>) – List of sectionalizing switch that are operating</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The networkx graph model along with the node position dictionary</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>graph, dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="resilience_graphtheory.GraphResilienceMetric.draw_network">
+<span class="sig-name descname"><span class="pre">draw_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line_faults</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switches_on</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dummy.png'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#resilience_graphtheory.GraphResilienceMetric.draw_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draws the network graph in a png file. This function draws the network topology  of the network given.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>dss python object</em>) – opendss network</p></li>
+<li><p><strong>line_faults</strong> (<em>list</em>) – List of line fault</p></li>
+<li><p><strong>switches_on</strong> (<em>list</em>) – List of sectionalizing switch that are operating</p></li>
+<li><p><strong>fileName</strong> (<em>str</em>) – Name of the file where the graph is going to be drawn.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Nothing</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="resilience_graphtheory.GraphResilienceMetric.graph_topology_metrics">
+<span class="sig-name descname"><span class="pre">graph_topology_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line_faults</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switches_on</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#resilience_graphtheory.GraphResilienceMetric.graph_topology_metrics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="resilience_graphtheory.get_Vbus">
+<span class="sig-prename descclassname"><span class="pre">resilience_graphtheory.</span></span><span class="sig-name descname"><span class="pre">get_Vbus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">busname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#resilience_graphtheory.get_Vbus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the bus voltages of a bus in the distribution feeder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>dss python object</em>) – opendss network</p></li>
+<li><p><strong>circuit</strong> (<em>circuit object</em>) – DSS circuit</p></li>
+<li><p><strong>busname</strong> (<em>str</em>) – bus name as defined in the dss case</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bus voltage</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Graph-based Resilience Metrics</a><ul>
+<li><a class="reference internal" href="#module-resilience_graphtheory">Classes and Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="CyberEnvVisualNewNW.html"
+                          title="previous chapter">SimPy RL Env GUI</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="generate_expert_demonstrations_feeder.html"
+                          title="next chapter">OpenDSS : Generate Expert Demonstrations</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/resilience_graphtheory.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="generate_expert_demonstrations_feeder.html" title="OpenDSS : Generate Expert Demonstrations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="CyberEnvVisualNewNW.html" title="SimPy RL Env GUI"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Graph-based Resilience Metrics</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

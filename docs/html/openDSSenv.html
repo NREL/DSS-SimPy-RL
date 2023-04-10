@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>openDSSenv module &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">openDSSenv module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-openDSSenv">
+<span id="opendssenv-module"></span><h1>openDSSenv module<a class="headerlink" href="#module-openDSSenv" title="Permalink to this headline">¶</a></h1>
+<p>Created on Wed Jun 15 18:08:05 2022</p>
+<p>&#64;author: abhijeetsahu</p>
+<p>This environment is created for episodic interaction of the OpenDSS simulator for training RL agent, similar to an Open AI Gym environment</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="openDSSenv.double_contingency">
+<span class="sig-prename descclassname"><span class="pre">openDSSenv.</span></span><span class="sig-name descname"><span class="pre">double_contingency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lfs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openDSSenv.double_contingency" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function causes a double contingency where two line fault occurs</p>
+<p>dss : opendss network 
+lfs : the list of transmission lines that encounters fault</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="openDSSenv.mix_contingency">
+<span class="sig-prename descclassname"><span class="pre">openDSSenv.</span></span><span class="sig-name descname"><span class="pre">mix_contingency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cb</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openDSSenv.mix_contingency" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function causes a mixed contingency where a line fault occurs along with one capacitor bank is shut down</p>
+<p>dss : opendss network 
+lf : the transmission line that undergoes line fault
+cb : the capacitor bank that goes down</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="openDSSenv.mix_contingency2">
+<span class="sig-prename descclassname"><span class="pre">openDSSenv.</span></span><span class="sig-name descname"><span class="pre">mix_contingency2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">der</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openDSSenv.mix_contingency2" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function causes a mixed contingency where a line fault occurs along with one capacitor bank is shut down</p>
+<p>dss : opendss network 
+lf : the transmission line that undergoes line fault
+der : set of der that goes down</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="openDSSenv.openDSSenv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">openDSSenv.</span></span><span class="sig-name descname"><span class="pre">openDSSenv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_critical_loads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_line_faults</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_switch_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_capacitor_banks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contingency</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_lb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_ub</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_ders</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openDSSenv.openDSSenv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gym.core.Env</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="openDSSenv.openDSSenv.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'render.modes':</span> <span class="pre">['human']}</span></em><a class="headerlink" href="#openDSSenv.openDSSenv.metadata" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openDSSenv.openDSSenv.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'human'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openDSSenv.openDSSenv.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function renders a simplistic visual of the environment, where based on the voltage profile, the network node colors would change</p>
+<p>mode : currently set to ‘human’ mode
+close : boolean to enable or disable rendering of the nevironment visuals</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openDSSenv.openDSSenv.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#openDSSenv.openDSSenv.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function resets the environment for a new episode where following things are performed:
+a) First all the controllable switches are opened
+b) Randomize the load profile
+c) based on a certain frequency a contingency is caused. Either single, double or mix
+d) the environment moves to the next state based on the contingency which acts as the initial state of the episode</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="openDSSenv.openDSSenv.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pc_queue=&lt;queue.Queue</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cp_queue=&lt;queue.Queue</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openDSSenv.openDSSenv.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function executes the selected action on the environment. In this environment the action are limited to closing and opening
+of the controllable switch. This function call would transition of the state to next state, and the reward is computed. Unless 
+we learn a reward function we can take some existing resilience metric. The agent reaches the goal when all the critical load
+buses satisfies the voltage criteria. In most of the prior RL work the voltage limit criteria is incorporated through the
+reward function/in the form of cost.</p>
+<p>action: The controllable switch name to CLOSE</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="openDSSenv.single_contingency">
+<span class="sig-prename descclassname"><span class="pre">openDSSenv.</span></span><span class="sig-name descname"><span class="pre">single_contingency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lf</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openDSSenv.single_contingency" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function causes a single line contingency</p>
+<p>dss : opendss network 
+lf : the transmission line that undergoes line fault</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="openDSSenv.triple_contingency">
+<span class="sig-prename descclassname"><span class="pre">openDSSenv.</span></span><span class="sig-name descname"><span class="pre">triple_contingency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lfs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#openDSSenv.triple_contingency" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function causes a double contingency where two line fault occurs</p>
+<p>dss : opendss network 
+lfs : the list of transmission lines that encounters fault</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/openDSSenv.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">openDSSenv module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

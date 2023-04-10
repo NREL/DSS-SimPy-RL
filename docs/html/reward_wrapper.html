@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>reward_wrapper module &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">reward_wrapper module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-reward_wrapper">
+<span id="reward-wrapper-module"></span><h1>reward_wrapper module<a class="headerlink" href="#module-reward_wrapper" title="Permalink to this headline">¶</a></h1>
+<p>Common wrapper for adding custom reward values to an environment.
+Code adopted from <a class="reference external" href="https://github.com/HumanCompatibleAI/imitation.git">https://github.com/HumanCompatibleAI/imitation.git</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="reward_wrapper.RewardVecEnvWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">reward_wrapper.</span></span><span class="sig-name descname"><span class="pre">RewardVecEnvWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">venv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stable_baselines3.common.vec_env.base_vec_env.VecEnv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ep_history</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#reward_wrapper.RewardVecEnvWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">stable_baselines3.common.vec_env.base_vec_env.VecEnvWrapper</span></code></p>
+<p>Uses a provided reward_fn to replace the reward function returned by <cite>step()</cite>.</p>
+<p>Automatically resets the inner VecEnv upon initialization. A tricky part
+about this class is keeping track of the most recent observation from each
+environment.</p>
+<p>Will also include the previous reward given by the inner VecEnv in the
+returned info dict under the <cite>original_env_rew</cite> key.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="reward_wrapper.RewardVecEnvWrapper.envs">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">envs</span></span><a class="headerlink" href="#reward_wrapper.RewardVecEnvWrapper.envs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="reward_wrapper.RewardVecEnvWrapper.make_log_callback">
+<span class="sig-name descname"><span class="pre">make_log_callback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#reward_wrapper.WrappedRewardCallback" title="reward_wrapper.WrappedRewardCallback"><span class="pre">reward_wrapper.WrappedRewardCallback</span></a></span></span><a class="headerlink" href="#reward_wrapper.RewardVecEnvWrapper.make_log_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates <cite>WrappedRewardCallback</cite> connected to this <cite>RewardVecEnvWrapper</cite>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="reward_wrapper.RewardVecEnvWrapper.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#reward_wrapper.RewardVecEnvWrapper.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset all the environments and return an array of
+observations, or a tuple of observation arrays.</p>
+<p>If step_async is still doing work, that work will
+be cancelled and step_wait() should not be called
+until step_async() is invoked again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>observation</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="reward_wrapper.RewardVecEnvWrapper.step_async">
+<span class="sig-name descname"><span class="pre">step_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#reward_wrapper.RewardVecEnvWrapper.step_async" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tell all the environments to start taking a step
+with the given actions.
+Call step_wait() to get the results of the step.</p>
+<p>You should not call this if a step_async run is
+already pending.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="reward_wrapper.RewardVecEnvWrapper.step_wait">
+<span class="sig-name descname"><span class="pre">step_wait</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#reward_wrapper.RewardVecEnvWrapper.step_wait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait for the step taken with step_async().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>observation, reward, done, information</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="reward_wrapper.WrappedRewardCallback">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">reward_wrapper.</span></span><span class="sig-name descname"><span class="pre">WrappedRewardCallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">episode_rewards</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Deque</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#reward_wrapper.WrappedRewardCallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">stable_baselines3.common.callbacks.BaseCallback</span></code></p>
+<p>Logs mean wrapped reward as part of RL (or other) training.</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/reward_wrapper.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">reward_wrapper module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

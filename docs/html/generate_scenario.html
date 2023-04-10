@@ -1,0 +1,445 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>OpenDSS Backend APIs &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SimPy Cyber RL Env" href="CyberWithChannelEnvSB_123_Experimentation.html" />
+    <link rel="prev" title="OpenDSS RL Env" href="openDSSenvSB_DiscreteSpace.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="CyberWithChannelEnvSB_123_Experimentation.html" title="SimPy Cyber RL Env"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="openDSSenvSB_DiscreteSpace.html" title="OpenDSS RL Env"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">OpenDSS Backend APIs</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="opendss-backend-apis">
+<h1>OpenDSS Backend APIs<a class="headerlink" href="#opendss-backend-apis" title="Permalink to this headline">¶</a></h1>
+<p>This section presents the functions used for interacting the OpenDSS simulation.</p>
+<section id="module-generate_scenario">
+<span id="classes-and-functions"></span><h2>Classes and Functions<a class="headerlink" href="#module-generate_scenario" title="Permalink to this headline">¶</a></h2>
+<p>Created on Tue Jun 07 19:42:05 2022</p>
+<p>&#64;author: abhijeetsahu</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.cause_line_fault">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">cause_line_fault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.cause_line_fault" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function causes the line outage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>object</em>) – openDss com object</p></li>
+<li><p><strong>line_number</strong> (<em>str</em>) – The transmission line that encounters outage</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of voltage status of all the buses in the distribution feeder</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.cb_outage">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">cb_outage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cb_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.cb_outage" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function implements the capacitor bank outage and run the power flow</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cb_name</strong> – the name of the capacitor bank selected</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.cb_restore">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">cb_restore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cb_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.cb_restore" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function restores the capacitor banks and re-run the power flow</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cb_name</strong> – the name of the capacitor bank selected</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.close_one_switch">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">close_one_switch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sw_to_close</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critical_load_buses</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.close_one_switch" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function closes one switch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>object</em>) – openDss com object</p></li>
+<li><p><strong>circuit</strong> (<em>dss.Circuit</em>) – The circuit of the dss object.</p></li>
+<li><p><strong>sw_to_close</strong> (<em>str</em>) – switch to close</p></li>
+<li><p><strong>critical_load_buses</strong> (<em>list</em>) – List of critical load buses</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of voltage status of critical load bus</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.close_switch">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">close_switch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switches_to_close</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rest_switch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critical_load_buses</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.close_switch" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function closes the set of sectionalizing switches and returns the voltage statuses of the critical loads</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>object</em>) – openDss com object</p></li>
+<li><p><strong>circuit</strong> (<em>dss.Circuit</em>) – The circuit of the dss object.</p></li>
+<li><p><strong>switches_to_close</strong> (<em>list</em>) – List of switches to close</p></li>
+<li><p><strong>rest_switch</strong> (<em>list</em>) – complete list of switches</p></li>
+<li><p><strong>critical_load_buses</strong> (<em>list</em>) – List of critical load buses</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of voltage status of critical load bus</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.close_switch_sequentially">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">close_switch_sequentially</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switches_to_close</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rest_switch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critical_load_buses</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.close_switch_sequentially" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function sequentially closes the switch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>object</em>) – openDss com object</p></li>
+<li><p><strong>circuit</strong> (<em>dss.Circuit</em>) – The circuit of the dss object.</p></li>
+<li><p><strong>switches_to_close</strong> (<em>list</em>) – List of switches to close</p></li>
+<li><p><strong>rest_switch</strong> (<em>list</em>) – complete list of switches</p></li>
+<li><p><strong>critical_load_buses</strong> (<em>list</em>) – List of critical load buses</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of voltage status of critical load bus</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.der_outage">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">der_outage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">der_bus_number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.der_outage" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function implements the DER outages and run the power flow</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>der_bus_number</strong> – the bus name of the DER which will encounter outage</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.disable_switches">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">disable_switches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switches_to_open</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.disable_switches" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function disable the switches and run the power flow</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.enable_switches">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">enable_switches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switches_to_close</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.enable_switches" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function enable the switches and run the power flow</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.getPowers">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">getPowers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.getPowers" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function gets the power consumed by a list of load buses</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>object</em>) – openDss com object</p></li>
+<li><p><strong>circuit</strong> (<em>dss.Circuit</em>) – The circuit of the dss object.</p></li>
+<li><p><strong>type</strong> (<em>str</em>) – circuit element type</p></li>
+<li><p><strong>names</strong> (<em>list</em>) – list of load buses</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of power consumed at the critical load buses</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.get_Vbus">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">get_Vbus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">busname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.get_Vbus" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function gets the absolute voltage magnitude of the specified bus</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>object</em>) – openDss com object</p></li>
+<li><p><strong>circuit</strong> (<em>dss.Circuit</em>) – The circuit of the dss object.</p></li>
+<li><p><strong>busname</strong> (<em>str</em>) – bus name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>voltage magnitude of the bus</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.get_lines">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">get_lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.get_lines" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.get_loads">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">get_loads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loadshape_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loadshape_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.get_loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function gets the list of load</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.get_transformer">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">get_transformer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.get_transformer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.open_switch_all">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">open_switch_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switches_to_open</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.open_switch_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function opens all the sectionalizing switches before the start of the episode</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>object</em>) – openDss com object</p></li>
+<li><p><strong>circuit</strong> (<em>dss.Circuit</em>) – The circuit of the dss object.</p></li>
+<li><p><strong>switches_to_open</strong> (<em>list</em>) – List of switches to open</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.process_solution">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">process_solution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">circuit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switch_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critical_loads_bus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_faults</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.process_solution" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function prints the best solution based on various resilience metric. This function was written based on identifying expert demonstrations based on a defined resilience metric</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>object</em>) – openDss com object</p></li>
+<li><p><strong>switch_names</strong> (<em>list</em>) – List of sectionalizing switches in the feeder</p></li>
+<li><p><strong>critical_loads_bus</strong> (<em>list</em>) – List of critical load bus names</p></li>
+<li><p><strong>line_faults</strong> (<em>list</em>) – The list of line under outage</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Nothing</p>
+</dd>
+</dl>
+<p>:type : None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.randomize_load">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">randomize_load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.randomize_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function randomise the load profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>load_names</strong> (<em>list</em>) – List of load bus names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.read_dss_result">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">read_dss_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">power_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bus_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">130</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.read_dss_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function reads the dss results mainly V and P, obtained after running the power flow</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>power_file</strong> (<em>str</em>) – file path to the power output</p></li>
+<li><p><strong>voltage_file</strong> (<em>str</em>) – file path to the voltage output</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.scale_down">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">scale_down</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randScale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.scale_down" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function scales down the load profile</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>object</em>) – openDss com object</p></li>
+<li><p><strong>randScale</strong> (<em>float</em>) – scaling factor</p></li>
+<li><p><strong>load_names</strong> (<em>list</em>) – List of load bus names</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Nothing</p>
+</dd>
+</dl>
+<p>:type : None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.scale_up">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">scale_up</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randScale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.scale_up" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function scales up the load profile</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dss</strong> (<em>object</em>) – openDss com object</p></li>
+<li><p><strong>randScale</strong> (<em>float</em>) – scaling factor</p></li>
+<li><p><strong>load_names</strong> (<em>list</em>) – List of load bus names</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Nothing</p>
+</dd>
+</dl>
+<p>:type : None</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.voltage_satisfiability">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">voltage_satisfiability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">volt_mag_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.voltage_satisfiability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the voltage are in limits</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>volt_mag_list</strong> (<em>list</em>) – List of p.u. voltage at the buses</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True or Falsse depending on voltage satisfiability</p>
+</dd>
+</dl>
+<p>:type : bool</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.voltage_satisfiability_easy">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">voltage_satisfiability_easy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">volt_mag_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.voltage_satisfiability_easy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generate_scenario.voltage_satisfiability_old">
+<span class="sig-prename descclassname"><span class="pre">generate_scenario.</span></span><span class="sig-name descname"><span class="pre">voltage_satisfiability_old</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">volt_mag_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generate_scenario.voltage_satisfiability_old" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">OpenDSS Backend APIs</a><ul>
+<li><a class="reference internal" href="#module-generate_scenario">Classes and Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="openDSSenvSB_DiscreteSpace.html"
+                          title="previous chapter">OpenDSS RL Env</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="CyberWithChannelEnvSB_123_Experimentation.html"
+                          title="next chapter">SimPy Cyber RL Env</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/generate_scenario.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="CyberWithChannelEnvSB_123_Experimentation.html" title="SimPy Cyber RL Env"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="openDSSenvSB_DiscreteSpace.html" title="OpenDSS RL Env"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">OpenDSS Backend APIs</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

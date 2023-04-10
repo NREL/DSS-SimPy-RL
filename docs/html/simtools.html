@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>simtools module &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">simtools module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-simtools">
+<span id="simtools-module"></span><h1>simtools module<a class="headerlink" href="#module-simtools" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="simtools.Notifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simtools.</span></span><span class="sig-name descname"><span class="pre">Notifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simtools.Notifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class that helps implementing the observer pattern. A <a class="reference internal" href="#simtools.Notifier" title="simtools.Notifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notifier</span></code></a>
+can be triggered providing a value. Both callback functions and SimPy
+generators can be subscribed. Every time the <a class="reference internal" href="#simtools.Notifier" title="simtools.Notifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notifier</span></code></a> is triggered,
+it will run its callback methods and trigger the execution of the subscribed
+SimPy generators. Aditionally, SimPy generators can wait for a
+<a class="reference internal" href="#simtools.Notifier" title="simtools.Notifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notifier</span></code></a> to be triggered by yielding its <a class="reference internal" href="#simtools.Notifier.event" title="simtools.Notifier.event"><code class="xref py py-attr docutils literal notranslate"><span class="pre">event</span></code></a>.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="simtools.Notifier.event">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">event</span></span><a class="headerlink" href="#simtools.Notifier.event" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code>: A SimPy event that succeeds when the
+<a class="reference internal" href="#simtools.Notifier" title="simtools.Notifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notifier</span></code></a> is triggered</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="simtools.Notifier.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#simtools.Notifier.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>str: The <a class="reference internal" href="#simtools.Notifier" title="simtools.Notifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notifier</span></code></a>’s name as it has been passed to the constructor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simtools.Notifier.subscribeCallback">
+<span class="sig-name descname"><span class="pre">subscribeCallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additionalArgs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simtools.Notifier.subscribeCallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the passed callable to the set of callback functions. Thus, when
+the <a class="reference internal" href="#simtools.Notifier" title="simtools.Notifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notifier</span></code></a> gets triggered, the callable will be invoked
+passing the value that the <a class="reference internal" href="#simtools.Notifier" title="simtools.Notifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notifier</span></code></a> was triggered with.
+Note:</p>
+<blockquote>
+<div><p>A callable can only be added once, regardless of its priority.</p>
+</div></blockquote>
+<dl>
+<dt>Args:</dt><dd><p>callback: The callable to be subscribed
+priority: If set, the callable is guaranteed to be invoked only</p>
+<blockquote>
+<div><p>after every callback with a higher priority value has been executed.
+Callbacks added without a priority value are assumed to have
+priority <cite>0</cite>.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>additionalArgs: A list of arguments that are passed as further</dt><dd><p>arguments when the callback function is invoked</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simtools.Notifier.subscribeProcess">
+<span class="sig-name descname"><span class="pre">subscribeProcess</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">process</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">simpy.events.Event</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocking</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queued</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simtools.Notifier.subscribeProcess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes the SimPy environment process the passed generator function when
+<a class="reference internal" href="#simtools.Notifier.trigger" title="simtools.Notifier.trigger"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trigger()</span></code></a> is called. The value passed to <a class="reference internal" href="#simtools.Notifier.trigger" title="simtools.Notifier.trigger"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trigger()</span></code></a> will also
+be passed to the generator function.
+Args:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>blocking: If set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, only one instance of the generator</dt><dd><p>will be processed at a time. Thus, if <a class="reference internal" href="#simtools.Notifier.trigger" title="simtools.Notifier.trigger"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trigger()</span></code></a> is called
+while the SimPy process started by an earlier <a class="reference internal" href="#simtools.Notifier.trigger" title="simtools.Notifier.trigger"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trigger()</span></code></a> call
+has not terminated, no action is taken.</p>
+</dd>
+<dt>queued: Only relevant if blocking is <code class="docutils literal notranslate"><span class="pre">True</span></code>. If <cite>queued</cite> is set to</dt><dd><p>false <code class="docutils literal notranslate"><span class="pre">False</span></code>, a <a class="reference internal" href="#simtools.Notifier.trigger" title="simtools.Notifier.trigger"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trigger()</span></code></a> call while an instance of the
+generator is still active will not result in an additional generator
+execution. If queued is set to <code class="docutils literal notranslate"><span class="pre">True</span></code> instead, the values of
+<a class="reference internal" href="#simtools.Notifier.trigger" title="simtools.Notifier.trigger"><code class="xref py py-meth docutils literal notranslate"><span class="pre">trigger()</span></code></a> calls that happen while the subscribed generator is
+being processed will be queued and as long as the queue is not
+empty, a new generator instance with a queued value will be
+processed every time a previous instance has terminated.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simtools.Notifier.trigger">
+<span class="sig-name descname"><span class="pre">trigger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simtools.Notifier.trigger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triggers the <a class="reference internal" href="#simtools.Notifier" title="simtools.Notifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notifier</span></code></a>. This runs the callbacks, makes the
+<a class="reference internal" href="#simtools.Notifier.event" title="simtools.Notifier.event"><code class="xref py py-attr docutils literal notranslate"><span class="pre">event</span></code></a> succeed, and triggers the processing of subscribed SimPy
+generators.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simtools.Notifier.unsubscribeCallback">
+<span class="sig-name descname"><span class="pre">unsubscribeCallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simtools.Notifier.unsubscribeCallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the passed callable from the set of callback functions.
+Afterwards, it is not triggered anymore by this <a class="reference internal" href="#simtools.Notifier" title="simtools.Notifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Notifier</span></code></a>.
+Args:</p>
+<blockquote>
+<div><p>callback: The callable to be removed</p>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="simtools.SimulationManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simtools.</span></span><span class="sig-name descname"><span class="pre">SimulationManager</span></span><a class="headerlink" href="#simtools.SimulationManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The <a class="reference internal" href="#simtools.SimulationManager" title="simtools.SimulationManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimulationManager</span></code></a> offers methods and properties for managing
+and accessing a SimPy simulation.
+Note:</p>
+<blockquote>
+<div><p>Do not create instances on your own. Reference the existing instance by
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">SimMan</span></code> instead.</p>
+</div></blockquote>
+<dl class="py property">
+<dt class="sig sig-object py" id="simtools.SimulationManager.env">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">env</span></span><a class="headerlink" href="#simtools.SimulationManager.env" title="Permalink to this definition">¶</a></dt>
+<dd><p>The SimPy <code class="xref py py-class docutils literal notranslate"><span class="pre">Environment</span></code> object belonging to the
+current simulation</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simtools.SimulationManager.event">
+<span class="sig-name descname"><span class="pre">event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simtools.SimulationManager.event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates and returns a new <code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code> object belonging to the
+current environment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simtools.SimulationManager.init">
+<span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simtools.SimulationManager.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new <code class="xref py py-class docutils literal notranslate"><span class="pre">Environment</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simtools.SimulationManager.nextTimeSlot">
+<span class="sig-name descname"><span class="pre">nextTimeSlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeSlotLength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">simpy.events.Event</span></span></span><a class="headerlink" href="#simtools.SimulationManager.nextTimeSlot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a SimPy timeout event that is scheduled for the beginning of the
+next time slot. A time slot starts whenever <cite>now</cite> % <cite>timeSlotLength</cite> is
+<code class="docutils literal notranslate"><span class="pre">0</span></code>.
+Args:</p>
+<blockquote>
+<div><p>timeSlotLength: The time slot length in seconds</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="simtools.SimulationManager.now">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">now</span></span><a class="headerlink" href="#simtools.SimulationManager.now" title="Permalink to this definition">¶</a></dt>
+<dd><p>int: The current simulation time step</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simtools.SimulationManager.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">simpy.events.Event</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">simpy.events.Process</span></span></span><a class="headerlink" href="#simtools.SimulationManager.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers a SimPy process generator (a generator yielding SimPy events)
+at the SimPy environment and returns it.
+Args:</p>
+<blockquote>
+<div><p>process: The generator to be registered as a process</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simtools.SimulationManager.runSimulation">
+<span class="sig-name descname"><span class="pre">runSimulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">until</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">simpy.events.Event</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simtools.SimulationManager.runSimulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the simulation (or continues running it) until the amount of
+simulated time specified by <cite>until</cite> has passed (with <cite>until</cite> being a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) or <cite>until</cite> is triggered (with <cite>until</cite> being an
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code>).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simtools.SimulationManager.timeout">
+<span class="sig-name descname"><span class="pre">timeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">simpy.events.Event</span></span></span><a class="headerlink" href="#simtools.SimulationManager.timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shorthand for env.timeout(duration, value)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simtools.SimulationManager.timeoutUntil">
+<span class="sig-name descname"><span class="pre">timeoutUntil</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">triggerTime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">simpy.events.Event</span></span></span><a class="headerlink" href="#simtools.SimulationManager.timeoutUntil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a SimPy <code class="xref py py-class docutils literal notranslate"><span class="pre">EventEvent</span></code> that succeeds at the
+simulated time specified by <cite>triggerTime</cite>.
+Args:</p>
+<blockquote>
+<div><p>triggerTime: When to trigger the <code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code>
+value: The value to call <code class="xref py py-meth docutils literal notranslate"><span class="pre">succeed()</span></code> with</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simtools.SimulationManager.triggerAfterTimeout">
+<span class="sig-name descname"><span class="pre">triggerAfterTimeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">simpy.events.Event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simtools.SimulationManager.triggerAfterTimeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls <code class="xref py py-meth docutils literal notranslate"><span class="pre">succeed()</span></code> on the <cite>event</cite> after the
+simulated time specified in <cite>timeout</cite> has passed. If the event has
+already been triggered by then, no action is taken.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="simtools.SimulationManager.updateRoute">
+<span class="sig-name descname"><span class="pre">updateRoute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simtools.SimulationManager.updateRoute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simtools.ownerPrefix">
+<span class="sig-prename descclassname"><span class="pre">simtools.</span></span><span class="sig-name descname"><span class="pre">ownerPrefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ownerObject</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#simtools.ownerPrefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls <code class="xref py py-meth docutils literal notranslate"><span class="pre">__repr__()</span></code> on the <cite>ownerObject</cite> (if it is not <code class="docutils literal notranslate"><span class="pre">None</span></code>) and
+returns the result concatenated with ‘.’.
+If the object is <code class="docutils literal notranslate"><span class="pre">None</span></code>, an empty string will be returned.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="simtools.strAndRepr">
+<span class="sig-prename descclassname"><span class="pre">simtools.</span></span><span class="sig-name descname"><span class="pre">strAndRepr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#simtools.strAndRepr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns “str (repr)” where str and repr are the result of <cite>str(obj)</cite> and
+<cite>repr(obj)</cite>.</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/simtools.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">simtools module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

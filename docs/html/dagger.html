@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>DAgger Imitation Learning &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Generative Adversarial Imitation Learning (GAIL)" href="gail.html" />
+    <link rel="prev" title="Behavioral Cloning" href="bc.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gail.html" title="Generative Adversarial Imitation Learning (GAIL)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bc.html" title="Behavioral Cloning"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">DAgger Imitation Learning</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="dagger-imitation-learning">
+<h1>DAgger Imitation Learning<a class="headerlink" href="#dagger-imitation-learning" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>Due to the i.i.d. assumption in the behavior cloning, if a classifier makes a mistake under the distribution of states faced by the demonstrator, then results following it faces compounded errors. DAgger proposes a new meta-algorithm which learns a stationary deterministic policy guaranteed to perform efficiently with the induced distribution of states. starts by extracting dataset at each iteration under the current policy and trains the next policy under the aggregate of all the collected datasets. The intuition behind this algorithm is that over the iterations, it is building up the set of inputs that the learned policy is likely to encounter during its execution based on previous experience (training iterations).</p>
+</div></blockquote>
+<section id="module-dagger">
+<span id="classes-and-functions"></span><h2>Classes and Functions<a class="headerlink" href="#module-dagger" title="Permalink to this headline">¶</a></h2>
+<p>DAgger (<a class="reference external" href="https://arxiv.org/pdf/1011.0686.pdf">https://arxiv.org/pdf/1011.0686.pdf</a>).</p>
+<p>Interactively trains policy by collecting some demonstrations, doing BC, collecting more
+demonstrations, doing BC again, etc. Initially the demonstrations just come from the
+expert’s policy; over time, they shift to be drawn more and more from the imitator’s
+policy.</p>
+<p>Code adopted from <a class="reference external" href="https://github.com/HumanCompatibleAI/imitation.git">https://github.com/HumanCompatibleAI/imitation.git</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="dagger.BetaSchedule">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dagger.</span></span><span class="sig-name descname"><span class="pre">BetaSchedule</span></span><a class="headerlink" href="#dagger.BetaSchedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Computes beta (% of time demonstration action used) from training round.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dagger.DAggerTrainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dagger.</span></span><span class="sig-name descname"><span class="pre">DAggerTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">venv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stable_baselines3.common.vec_env.base_vec_env.VecEnv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta_schedule</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bc_trainer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="bc.html#bc.BC" title="bc.BC"><span class="pre">bc.BC</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="logger.html#logger.HierarchicalLogger" title="logger.HierarchicalLogger"><span class="pre">logger.HierarchicalLogger</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dagger.DAggerTrainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base.html#base.BaseImitationAlgorithm" title="base.BaseImitationAlgorithm"><code class="xref py py-class docutils literal notranslate"><span class="pre">base.BaseImitationAlgorithm</span></code></a></p>
+<p>DAgger training class with low-level API suitable for interactive human feedback.</p>
+<p>In essence, this is just BC with some helpers for incrementally
+resuming training and interpolating between demonstrator/learnt policies.
+Interaction proceeds in “rounds” in which the demonstrator first provides a
+fresh set of demonstrations, and then an underlying <cite>BC</cite> is invoked to
+fine-tune the policy on the entire set of demonstrations collected in all
+rounds so far. Demonstrations and policy/trainer checkpoints are stored in a
+directory with the following structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>scratch-dir-name/
+    checkpoint-001.pkl
+    checkpoint-002.pkl
+    …
+    checkpoint-XYZ.pkl
+    checkpoint-latest.pkl
+    demos/
+        round-000/
+            demos_round_000_000.npz
+            demos_round_000_001.npz
+            …
+        round-001/
+            demos_round_001_000.npz
+            …
+        …
+        round-XYZ/
+            …
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dagger.DAggerTrainer.DEFAULT_N_EPOCHS">
+<span class="sig-name descname"><span class="pre">DEFAULT_N_EPOCHS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#dagger.DAggerTrainer.DEFAULT_N_EPOCHS" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default number of BC training epochs in <cite>extend_and_update</cite>.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dagger.DAggerTrainer.batch_size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#dagger.DAggerTrainer.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dagger.DAggerTrainer.create_trajectory_collector">
+<span class="sig-name descname"><span class="pre">create_trajectory_collector</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#dagger.InteractiveTrajectoryCollector" title="dagger.InteractiveTrajectoryCollector"><span class="pre">dagger.InteractiveTrajectoryCollector</span></a></span></span><a class="headerlink" href="#dagger.DAggerTrainer.create_trajectory_collector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create trajectory collector to extend current round’s demonstration set.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>A collector configured with the appropriate beta, imitator policy, etc.
+for the current round. Refer to the documentation for
+<cite>InteractiveTrajectoryCollector</cite> to see how to use this.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dagger.DAggerTrainer.extend_and_update">
+<span class="sig-name descname"><span class="pre">extend_and_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bc_train_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Mapping</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#dagger.DAggerTrainer.extend_and_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extend internal batch of data and train BC.</p>
+<p>Specifically, this method will load new transitions (if necessary), train
+the model for a while, and advance the round counter. If there are no fresh
+demonstrations in the demonstration directory for the current round, then
+this will raise a <cite>NeedsDemosException</cite> instead of training or advancing
+the round counter. In that case, the user should call
+<cite>.create_trajectory_collector()</cite> and use the returned
+<cite>InteractiveTrajectoryCollector</cite> to produce a new set of demonstrations for
+the current interaction round.</p>
+<dl class="simple">
+<dt>Arguments:</dt><dd><dl class="simple">
+<dt>bc_train_kwargs: Keyword arguments for calling <cite>BC.train()</cite>. If</dt><dd><p>the <cite>log_rollouts_venv</cite> key is not provided, then it is set to
+<cite>self.venv</cite> by default. If neither of the <cite>n_epochs</cite> and <cite>n_batches</cite>
+keys are provided, then <cite>n_epochs</cite> is set to <cite>self.DEFAULT_N_EPOCHS</cite>.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>New round number after advancing the round counter.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dagger.DAggerTrainer.logger">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#dagger.DAggerTrainer.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="dagger.DAggerTrainer.policy">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">policy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">stable_baselines3.common.policies.BasePolicy</span></em><a class="headerlink" href="#dagger.DAggerTrainer.policy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dagger.DAggerTrainer.save_policy">
+<span class="sig-name descname"><span class="pre">save_policy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">policy_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dagger.DAggerTrainer.save_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the current policy only (and not the rest of the trainer).</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>policy_path: path to save policy to.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dagger.DAggerTrainer.save_trainer">
+<span class="sig-name descname"><span class="pre">save_trainer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pathlib.Path</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#dagger.DAggerTrainer.save_trainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a snapshot of trainer in the scratch/working directory.</p>
+<p>The created snapshot can be reloaded with <cite>reconstruct_trainer()</cite>.
+In addition to saving one copy of the policy in the trainer snapshot, this
+method saves a second copy of the policy in its own file. Having a second copy
+of the policy is convenient because it can be loaded on its own and passed to
+evaluation routines for other algorithms.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>checkpoint_path: a path to one of the created <cite>DAggerTrainer</cite> checkpoints.
+policy_path: a path to one of the created <cite>DAggerTrainer</cite> policies.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dagger.InteractiveTrajectoryCollector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dagger.</span></span><span class="sig-name descname"><span class="pre">InteractiveTrajectoryCollector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">venv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stable_baselines3.common.vec_env.base_vec_env.VecEnv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_robot_acts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dagger.InteractiveTrajectoryCollector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">stable_baselines3.common.vec_env.base_vec_env.VecEnvWrapper</span></code></p>
+<p>DAgger VecEnvWrapper for querying and saving expert actions.</p>
+<p>Every call to <cite>.step(actions)</cite> accepts and saves expert actions to <cite>self.save_dir</cite>,
+but only forwards expert actions to the wrapped VecEnv with probability
+<cite>self.beta</cite>. With probability <cite>1 - self.beta</cite>, a “robot” action (i.e
+an action from the imitation policy) is forwarded instead.</p>
+<p>Demonstrations are saved as <cite>TrajectoryWithRew</cite> to <cite>self.save_dir</cite> at the end
+of every episode.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="dagger.InteractiveTrajectoryCollector.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#dagger.InteractiveTrajectoryCollector.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the environment.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>obs: first observation of a new trajectory.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dagger.InteractiveTrajectoryCollector.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Union[int,</span> <span class="pre">NoneType]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#dagger.InteractiveTrajectoryCollector.seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the seed for the DAgger random number generator and wrapped VecEnv.</p>
+<p>The DAgger RNG is used along with <cite>self.beta</cite> to determine whether the expert
+or robot action is forwarded to the wrapped VecEnv.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>seed: The random seed. May be None for completely random seeding.</p>
+</dd>
+<dt>Returns:</dt><dd><p>A list containing the seeds for each individual env. Note that all list
+elements may be None, if the env does not return anything when seeded.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dagger.InteractiveTrajectoryCollector.step_async">
+<span class="sig-name descname"><span class="pre">step_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dagger.InteractiveTrajectoryCollector.step_async" title="Permalink to this definition">¶</a></dt>
+<dd><p>Steps with a <cite>1 - beta</cite> chance of using <cite>self.get_robot_acts</cite> instead.</p>
+<p>DAgger needs to be able to inject imitation policy actions randomly at some
+subset of time steps. This method has a <cite>self.beta</cite> chance of keeping the
+<cite>actions</cite> passed in as an argument, and a <cite>1 - self.beta</cite> chance of
+forwarding actions generated by <cite>self.get_robot_acts</cite> instead.
+“robot” (i.e. imitation policy) action if necessary.</p>
+<p>At the end of every episode, a <cite>TrajectoryWithRew</cite> is saved to <cite>self.save_dir</cite>,
+where every saved action is the expert action, regardless of whether the
+robot action was used during that timestep.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>actions: the _intended_ demonstrator/expert actions for the current</dt><dd><p>state. This will be executed with probability <cite>self.beta</cite>.
+Otherwise, a “robot” (typically a BC policy) action will be sampled
+and executed instead via <cite>self.get_robot_act</cite>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dagger.InteractiveTrajectoryCollector.step_wait">
+<span class="sig-name descname"><span class="pre">step_wait</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#dagger.InteractiveTrajectoryCollector.step_wait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns observation, reward, etc after previous <cite>step_async()</cite> call.</p>
+<p>Stores the transition, and saves trajectory as demo once complete.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>Observation, reward, dones (is terminal?) and info dict.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dagger.LinearBetaSchedule">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dagger.</span></span><span class="sig-name descname"><span class="pre">LinearBetaSchedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rampdown_rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dagger.LinearBetaSchedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dagger.BetaSchedule" title="dagger.BetaSchedule"><code class="xref py py-class docutils literal notranslate"><span class="pre">dagger.BetaSchedule</span></code></a></p>
+<p>Linearly-decreasing schedule for beta.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="dagger.NeedsDemosException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dagger.</span></span><span class="sig-name descname"><span class="pre">NeedsDemosException</span></span><a class="headerlink" href="#dagger.NeedsDemosException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Signals demos need to be collected for current round before continuing.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="dagger.SimpleDAggerTrainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dagger.</span></span><span class="sig-name descname"><span class="pre">SimpleDAggerTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">venv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stable_baselines3.common.vec_env.base_vec_env.VecEnv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expert_policy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stable_baselines3.common.policies.BasePolicy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expert_trajs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="types_unique.html#types_unique.Trajectory" title="types_unique.Trajectory"><span class="pre">types_unique.Trajectory</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">dagger_trainer_kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dagger.SimpleDAggerTrainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dagger.DAggerTrainer" title="dagger.DAggerTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">dagger.DAggerTrainer</span></code></a></p>
+<p>Simpler subclass of DAggerTrainer for training with synthetic feedback.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dagger.SimpleDAggerTrainer.allow_variable_horizon">
+<span class="sig-name descname"><span class="pre">allow_variable_horizon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#dagger.SimpleDAggerTrainer.allow_variable_horizon" title="Permalink to this definition">¶</a></dt>
+<dd><p>If True, allow variable horizon trajectories; otherwise error if detected.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="dagger.SimpleDAggerTrainer.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">total_timesteps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rollout_round_min_episodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rollout_round_min_timesteps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bc_train_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#dagger.SimpleDAggerTrainer.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train the DAgger agent.</p>
+<p>The agent is trained in “rounds” where each round consists of a dataset
+aggregation step followed by BC update step.</p>
+<p>During a dataset aggregation step, <cite>self.expert_policy</cite> is used to perform
+rollouts in the environment but there is a <cite>1 - beta</cite> chance (beta is
+determined from the round number and <cite>self.beta_schedule</cite>) that the DAgger
+agent’s action is used instead. Regardless of whether the DAgger agent’s action
+is used during the rollout, the expert action and corresponding observation are
+always appended to the dataset. The number of environment steps in the
+dataset aggregation stage is determined by the <cite>rollout_round_min*</cite> arguments.</p>
+<p>During a BC update step, <cite>BC.train()</cite> is called to update the DAgger agent on
+all data collected so far.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>total_timesteps: The number of timesteps to train inside the environment.</dt><dd><p>In practice this is a lower bound, because the number of timesteps is
+rounded up to finish the minimum number of episdoes or timesteps in the
+last DAgger training round, and the environment timesteps are executed
+in multiples of <cite>self.venv.num_envs</cite>.</p>
+</dd>
+<dt>rollout_round_min_episodes: The number of episodes the must be completed</dt><dd><p>completed before a dataset aggregation step ends.</p>
+</dd>
+<dt>rollout_round_min_timesteps: The number of environment timesteps that must</dt><dd><p>be completed before a dataset aggregation step ends. Also, that any
+round will always train for at least <cite>self.batch_size</cite> timesteps,
+because otherwise BC could fail to receive any batches.</p>
+</dd>
+<dt>bc_train_kwargs: Keyword arguments for calling <cite>BC.train()</cite>. If</dt><dd><p>the <cite>log_rollouts_venv</cite> key is not provided, then it is set to
+<cite>self.venv</cite> by default. If neither of the <cite>n_epochs</cite> and <cite>n_batches</cite>
+keys are provided, then <cite>n_epochs</cite> is set to <cite>self.DEFAULT_N_EPOCHS</cite>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dagger.reconstruct_trainer">
+<span class="sig-prename descclassname"><span class="pre">dagger.</span></span><span class="sig-name descname"><span class="pre">reconstruct_trainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scratch_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">venv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stable_baselines3.common.vec_env.base_vec_env.VecEnv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="logger.html#logger.HierarchicalLogger" title="logger.HierarchicalLogger"><span class="pre">logger.HierarchicalLogger</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.device</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#dagger.DAggerTrainer" title="dagger.DAggerTrainer"><span class="pre">dagger.DAggerTrainer</span></a></span></span><a class="headerlink" href="#dagger.reconstruct_trainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconstruct trainer from the latest snapshot in some working directory.</p>
+<p>Requires vectorized environment and (optionally) a logger, as these objects
+cannot be serialized.</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>scratch_dir: path to the working directory created by a previous run of</dt><dd><p>this algorithm. The directory should contain <cite>checkpoint-latest.pt</cite> and
+<cite>policy-latest.pt</cite> files.</p>
+</dd>
+</dl>
+<p>venv: Vectorized training environment.
+custom_logger: Where to log to; if None (default), creates a new logger.
+device: device on which to load the trainer.</p>
+</dd>
+<dt>Returns:</dt><dd><p>A deserialized <cite>DAggerTrainer</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">DAgger Imitation Learning</a><ul>
+<li><a class="reference internal" href="#module-dagger">Classes and Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="bc.html"
+                          title="previous chapter">Behavioral Cloning</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="gail.html"
+                          title="next chapter">Generative Adversarial Imitation Learning (GAIL)</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/dagger.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="gail.html" title="Generative Adversarial Imitation Learning (GAIL)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bc.html" title="Behavioral Cloning"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">DAgger Imitation Learning</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

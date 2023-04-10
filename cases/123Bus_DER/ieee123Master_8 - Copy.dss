@@ -1,0 +1,431 @@
+
+Clear
+
+New object=circuit.ieee123 basekv=4.16 Bus1=124 pu=1.00 R1=0 X1=0.0001 R0=0 X0=0.0001
+
+Redirect        IEEELinecodes.DSS
+! Redirect        IEEELinecodes_new.DSS
+
+New Line.L0     Phases=3 Bus1=116.1.2.3  Bus2=1.1.2.3    LineCode=1    Length=0.4
+New Line.L1     Phases=1 Bus1=1.2        Bus2=2.2        LineCode=10   Length=0.175
+New Line.L2     Phases=1 Bus1=1.3        Bus2=3.3        LineCode=11   Length=0.25
+New Line.L3     Phases=3 Bus1=1.1.2.3    Bus2=7.1.2.3    LineCode=1    Length=0.3
+New Line.L4     Phases=1 Bus1=3.3        Bus2=4.3        LineCode=11   Length=0.2
+New Line.L5     Phases=1 Bus1=3.3        Bus2=5.3        LineCode=11   Length=0.325
+New Line.L6     Phases=1 Bus1=5.3        Bus2=6.3        LineCode=11   Length=0.25
+New Line.L7     Phases=3 Bus1=7.1.2.3    Bus2=8.1.2.3    LineCode=1    Length=0.2
+New Line.L8     Phases=1 Bus1=8.2        Bus2=12.2       LineCode=10   Length=0.225
+New Line.L9     Phases=1 Bus1=8.1        Bus2=9.1        LineCode=9    Length=0.225
+New Line.L10    Phases=3 Bus1=8.1.2.3    Bus2=13.1.2.3   LineCode=1    Length=0.3
+New Line.L11    Phases=1 Bus1=9.1        Bus2=14.1       LineCode=9    Length=0.425
+New Line.L12    Phases=1 Bus1=13.3       Bus2=34.3       LineCode=11   Length=0.15
+New Line.L13    Phases=3 Bus1=13.1.2.3   Bus2=18.1.2.3   LineCode=2    Length=0.825
+New Line.L14    Phases=1 Bus1=14.1       Bus2=11.1       LineCode=9    Length=0.25
+New Line.L15    Phases=1 Bus1=14.1       Bus2=10.1       LineCode=9    Length=0.25
+New Line.L16    Phases=1 Bus1=15.3       Bus2=16.3       LineCode=11   Length=0.375
+New Line.L17    Phases=1 Bus1=15.3       Bus2=17.3       LineCode=11   Length=0.35
+New Line.L18    Phases=1 Bus1=18.1       Bus2=19.1       LineCode=9    Length=0.25
+New Line.L19    Phases=3 Bus1=18.1.2.3   Bus2=21.1.2.3   LineCode=2    Length=0.3
+New Line.L20    Phases=1 Bus1=19.1       Bus2=20.1       LineCode=9    Length=0.325
+New Line.L21    Phases=1 Bus1=21.2       Bus2=22.2       LineCode=10   Length=0.525
+New Line.L22    Phases=3 Bus1=21.1.2.3   Bus2=23.1.2.3   LineCode=2    Length=0.25
+New Line.L23    Phases=1 Bus1=23.3       Bus2=24.3       LineCode=11   Length=0.55
+New Line.L24    Phases=3 Bus1=23.1.2.3   Bus2=25.1.2.3   LineCode=2    Length=0.275
+New Line.L25    Phases=2 Bus1=25.1.3     Bus2=26.1.3     LineCode=7    Length=0.35
+New Line.L26    Phases=3 Bus1=25.1.2.3   Bus2=28.1.2.3   LineCode=2    Length=0.2
+New Line.L27    Phases=2 Bus1=26.1.3     Bus2=27.1.3     LineCode=7    Length=0.275
+New Line.L28    Phases=1 Bus1=26.3       Bus2=31.3       LineCode=11   Length=0.225
+New Line.L29    Phases=1 Bus1=27.1       Bus2=33.1       LineCode=9    Length=0.5
+New Line.L30    Phases=3 Bus1=28.1.2.3   Bus2=29.1.2.3   LineCode=2    Length=0.3
+New Line.L31    Phases=3 Bus1=29.1.2.3   Bus2=30.1.2.3   LineCode=2    Length=0.35
+New Line.L32    Phases=3 Bus1=30.1.2.3   Bus2=121.1.2.3  LineCode=2    Length=0.2
+New Line.L33    Phases=1 Bus1=31.3       Bus2=32.3       LineCode=11   Length=0.3
+New Line.L34    Phases=1 Bus1=34.3       Bus2=15.3       LineCode=11   Length=0.1
+New Line.L35    Phases=2 Bus1=35.1.2     Bus2=36.1.2     LineCode=8    Length=0.65
+New Line.L36    Phases=3 Bus1=35.1.2.3   Bus2=40.1.2.3   LineCode=1    Length=0.25
+New Line.L37    Phases=1 Bus1=36.1       Bus2=37.1       LineCode=9    Length=0.3
+New Line.L38    Phases=1 Bus1=36.2       Bus2=38.2       LineCode=10   Length=0.25
+New Line.L39    Phases=1 Bus1=38.2       Bus2=39.2       LineCode=10   Length=0.325
+New Line.L40    Phases=1 Bus1=40.3       Bus2=41.3       LineCode=11   Length=0.325
+New Line.L41    Phases=3 Bus1=40.1.2.3   Bus2=42.1.2.3   LineCode=1    Length=0.25
+New Line.L42    Phases=1 Bus1=42.2       Bus2=43.2       LineCode=10   Length=0.5
+New Line.L43    Phases=3 Bus1=42.1.2.3   Bus2=44.1.2.3   LineCode=1    Length=0.2
+New Line.L44    Phases=1 Bus1=44.1       Bus2=45.1       LineCode=9    Length=0.2
+New Line.L45    Phases=3 Bus1=44.1.2.3   Bus2=47.1.2.3   LineCode=1    Length=0.25
+New Line.L46    Phases=1 Bus1=45.1       Bus2=46.1       LineCode=9    Length=0.3
+New Line.L47    Phases=3 Bus1=47.1.2.3   Bus2=48.1.2.3   LineCode=4    Length=0.15
+New Line.L48    Phases=3 Bus1=47.1.2.3   Bus2=49.1.2.3   LineCode=4    Length=0.25
+New Line.L49    Phases=3 Bus1=49.1.2.3   Bus2=50.1.2.3   LineCode=4    Length=0.25
+New Line.L50    Phases=3 Bus1=50.1.2.3   Bus2=51.1.2.3   LineCode=4    Length=0.25
+New Line.L51    Phases=3 Bus1=51.1.2.3   Bus2=117.1.2.3  LineCode=4    Length=0.5
+New Line.L52    Phases=3 Bus1=52.1.2.3   Bus2=53.1.2.3   LineCode=1    Length=0.2
+New Line.L53    Phases=3 Bus1=53.1.2.3   Bus2=54.1.2.3   LineCode=1    Length=0.125
+New Line.L54    Phases=3 Bus1=54.1.2.3   Bus2=55.1.2.3   LineCode=1    Length=0.275
+New Line.L55    Phases=3 Bus1=54.1.2.3   Bus2=57.1.2.3   LineCode=3    Length=0.35
+New Line.L56    Phases=3 Bus1=55.1.2.3   Bus2=56.1.2.3   LineCode=1    Length=0.275
+New Line.L57    Phases=1 Bus1=57.2       Bus2=58.2       LineCode=10   Length=0.25
+New Line.L58    Phases=3 Bus1=57.1.2.3   Bus2=60.1.2.3   LineCode=3    Length=0.75
+New Line.L59    Phases=1 Bus1=58.2       Bus2=59.2       LineCode=10   Length=0.25
+New Line.L60    Phases=3 Bus1=60.1.2.3   Bus2=61.1.2.3   LineCode=5    Length=0.55
+New Line.L61    Phases=3 Bus1=60.1.2.3   Bus2=62.1.2.3   LineCode=12   Length=0.25
+New Line.L62    Phases=3 Bus1=62.1.2.3   Bus2=63.1.2.3   LineCode=12   Length=0.175
+New Line.L63    Phases=3 Bus1=63.1.2.3   Bus2=64.1.2.3   LineCode=12   Length=0.35
+New Line.L64    Phases=3 Bus1=64.1.2.3   Bus2=65.1.2.3   LineCode=12   Length=0.425
+New Line.L65    Phases=3 Bus1=65.1.2.3   Bus2=66.1.2.3   LineCode=12   Length=0.325
+New Line.L66    Phases=1 Bus1=67.1       Bus2=68.1       LineCode=9    Length=0.2
+New Line.L67    Phases=3 Bus1=67.1.2.3   Bus2=72.1.2.3   LineCode=3    Length=0.275
+New Line.L68    Phases=3 Bus1=67.1.2.3   Bus2=97.1.2.3   LineCode=3    Length=0.25
+New Line.L69    Phases=1 Bus1=68.1       Bus2=69.1       LineCode=9    Length=0.275
+New Line.L70    Phases=1 Bus1=69.1       Bus2=70.1       LineCode=9    Length=0.325
+New Line.L71    Phases=1 Bus1=70.1       Bus2=71.1       LineCode=9    Length=0.275
+New Line.L72    Phases=1 Bus1=72.3       Bus2=73.3       LineCode=11   Length=0.275
+New Line.L73    Phases=3 Bus1=72.1.2.3   Bus2=76.1.2.3   LineCode=3    Length=0.2
+New Line.L74    Phases=1 Bus1=73.3       Bus2=74.3       LineCode=11   Length=0.35
+New Line.L75    Phases=1 Bus1=74.3       Bus2=75.3       LineCode=11   Length=0.4
+New Line.L76    Phases=3 Bus1=76.1.2.3   Bus2=77.1.2.3   LineCode=6    Length=0.4
+New Line.L77    Phases=3 Bus1=76.1.2.3   Bus2=86.1.2.3   LineCode=3    Length=0.7
+New Line.L78    Phases=3 Bus1=77.1.2.3   Bus2=78.1.2.3   LineCode=6    Length=0.1
+New Line.L79    Phases=3 Bus1=78.1.2.3   Bus2=79.1.2.3   LineCode=6    Length=0.225
+New Line.L80    Phases=3 Bus1=78.1.2.3   Bus2=80.1.2.3   LineCode=6    Length=0.475
+New Line.L81    Phases=3 Bus1=80.1.2.3   Bus2=81.1.2.3   LineCode=6    Length=0.175
+New Line.L82    Phases=3 Bus1=81.1.2.3   Bus2=82.1.2.3   LineCode=6    Length=0.25
+New Line.L83    Phases=1 Bus1=81.3       Bus2=84.3       LineCode=11   Length=0.675
+New Line.L84    Phases=3 Bus1=82.1.2.3   Bus2=83.1.2.3   LineCode=6    Length=0.25
+New Line.L85    Phases=1 Bus1=84.3       Bus2=85.3       LineCode=11   Length=0.475
+New Line.L86    Phases=3 Bus1=86.1.2.3   Bus2=87.1.2.3   LineCode=6    Length=0.45
+New Line.L87    Phases=1 Bus1=87.1       Bus2=88.1       LineCode=9    Length=0.175
+New Line.L88    Phases=3 Bus1=87.1.2.3   Bus2=89.1.2.3   LineCode=6    Length=0.275
+New Line.L89    Phases=1 Bus1=89.2       Bus2=90.2       LineCode=10   Length=0.25
+New Line.L90    Phases=3 Bus1=89.1.2.3   Bus2=91.1.2.3   LineCode=6    Length=0.225
+New Line.L91    Phases=1 Bus1=91.3       Bus2=92.3       LineCode=11   Length=0.3
+New Line.L92    Phases=3 Bus1=91.1.2.3   Bus2=93.1.2.3   LineCode=6    Length=0.225
+New Line.L93    Phases=1 Bus1=93.1       Bus2=94.1       LineCode=9    Length=0.275
+New Line.L94    Phases=3 Bus1=93.1.2.3   Bus2=95.1.2.3   LineCode=6    Length=0.3
+New Line.L95    Phases=1 Bus1=95.2       Bus2=96.2       LineCode=10   Length=0.2
+New Line.L96    Phases=3 Bus1=97.1.2.3   Bus2=98.1.2.3   LineCode=3    Length=0.275
+New Line.L97    Phases=3 Bus1=98.1.2.3   Bus2=99.1.2.3   LineCode=3    Length=0.55
+New Line.L98    Phases=3 Bus1=99.1.2.3   Bus2=100.1.2.3  LineCode=3    Length=0.3
+New Line.L99    Phases=3 Bus1=100.1.2.3  Bus2=123.1.2.3  LineCode=3    Length=0.8
+New Line.L100   Phases=3 Bus1=120.1.2.3  Bus2=101.1.2.3  LineCode=3    Length=0.25
+New Line.L101   Phases=1 Bus1=101.3      Bus2=102.3      LineCode=11   Length=0.225
+New Line.L102   Phases=3 Bus1=101.1.2.3  Bus2=105.1.2.3  LineCode=3    Length=0.275
+New Line.L103   Phases=1 Bus1=102.3      Bus2=103.3      LineCode=11   Length=0.325
+New Line.L104   Phases=1 Bus1=103.3      Bus2=104.3      LineCode=11   Length=0.7
+New Line.L105   Phases=1 Bus1=105.2      Bus2=106.2      LineCode=10   Length=0.225
+New Line.L106   Phases=3 Bus1=105.1.2.3  Bus2=108.1.2.3  LineCode=3    Length=0.325
+New Line.L107   Phases=1 Bus1=106.2      Bus2=107.2      LineCode=10   Length=0.575
+New Line.L108   Phases=1 Bus1=108.1      Bus2=109.1      LineCode=9    Length=0.45
+New Line.L109   Phases=3 Bus1=108.1.2.3  Bus2=122.1.2.3  LineCode=3    Length=1
+New Line.L110   Phases=1 Bus1=109.1      Bus2=110.1      LineCode=9    Length=0.3
+New Line.L111   Phases=1 Bus1=110.1      Bus2=111.1      LineCode=9    Length=0.575
+New Line.L112   Phases=1 Bus1=110.1      Bus2=112.1      LineCode=9    Length=0.125
+New Line.L113   Phases=1 Bus1=112.1      Bus2=113.1      LineCode=9    Length=0.525
+New Line.L114   Phases=1 Bus1=113.1      Bus2=114.1      LineCode=9    Length=0.325
+New Line.L115   Phases=3 Bus1=115.1.2.3  Bus2=35.1.2.3   LineCode=4    Length=0.375
+New Line.L116   Phases=3 Bus1=118.1.2.3  Bus2=52.1.2.3   LineCode=1    Length=0.4
+New Line.L117   Phases=3 Bus1=119.1.2.3  Bus2=67.1.2.3   LineCode=6    Length=0.35
+New Line.L118   phases=3 Bus1=13.1.2.3   Bus2=118.1.2.3  LineCode=1    Length=0.001
+New Line.L119   phases=3 Bus1=18.1.2.3   Bus2=115.1.2.3  LineCode=1    Length=0.001
+New Line.L120   phases=3 Bus1=60.1.2.3   Bus2=119.1.2.3  LineCode=1    Length=0.001
+New Line.L121   phases=3 Bus1=97.1.2.3   Bus2=120.1.2.3  LineCode=1    Length=0.001
+New Line.L122   phases=3 Bus1=56.1.2.3   Bus2=95.1.2.3   LineCode=1    Length=0.001
+New Line.L123   phases=3 Bus1=83.1.2.3   Bus2=95.1.2.3   LineCode=1    Length=0.001
+New Line.L124   phases=3 Bus1=49.1.2.3   Bus2=121.1.2.3  LineCode=1    Length=0.001
+New Line.L125   phases=3 Bus1=117.1.2.3  Bus2=122.1.2.3  LineCode=1    Length=0.001
+
+Set VoltageBases = [4.16, 0.48]    ! ARRAY OF VOLTAGES IN KV
+CalcVoltageBases  ! PERFORMS ZERO LOAD POWER FLOW TO ESTIMATE VOLTAGE BASES
+
+Disable Line.L13
+Disable Line.L86
+Disable Line.L106
+Disable Line.L116
+Disable Line.L117
+Disable Line.L48
+
+New Vsource.sub116a phases=1 bus1=116.1 basekv=2.4 angle=0 pu=0.98
+New Vsource.sub116b phases=1 bus1=116.2 basekv=2.4 angle=-120 pu=0.98
+New Vsource.sub116c phases=1 bus1=116.3 basekv=2.4 angle=120 pu=0.98
+New Vsource.sub21a phases=1 bus1=21.1 basekv=2.4 angle=0 pu=0.9823282552266335
+New Vsource.sub21b phases=1 bus1=21.2 basekv=2.4 angle=-120 pu=0.98
+New Vsource.sub21c phases=1 bus1=21.3 basekv=2.4 angle=120 pu=0.98
+New Generator.der108a phases=1 bus1=108.1 conn=wye kv=2.4 kw=254.98598845469294 kvar=165.0407903999113 model=1
+New Generator.der108b phases=1 bus1=108.2 conn=wye kv=2.4 kw=0.001 kvar=0.001 model=1
+New Generator.der108c phases=1 bus1=108.3 conn=wye kv=2.4 kw=19.89323866369099 kvar=14.920178997768243 model=1
+New Generator.der35a phases=1 bus1=35.1 conn=wye kv=2.4 kw=82.02364600820067 kvar=61.5179845061505 model=1
+New Generator.der35b phases=1 bus1=35.2 conn=wye kv=2.4 kw=78.14582990848814 kvar=58.6096224313661 model=1
+New Generator.der35c phases=1 bus1=35.3 conn=wye kv=2.4 kw=82.02364600820067 kvar=61.5179845061505 model=1
+New Generator.der48a phases=1 bus1=48.1 conn=wye kv=2.4 kw=109.19678098392433 kvar=81.89783573794324 model=1
+New Generator.der48b phases=1 bus1=48.2 conn=wye kv=2.4 kw=109.19678098392433 kvar=81.89783573794324 model=1
+New Generator.der48c phases=1 bus1=48.3 conn=wye kv=2.4 kw=109.19678098392433 kvar=81.89783573794324 model=1
+! New Vsource.sub64a phases=1 bus1=64.1 basekv=2.4 angle=0 pu=0.9860142392258423
+! New Vsource.sub64b phases=1 bus1=64.2 basekv=2.4 angle=-120 pu=0.9802510282395861
+! New Vsource.sub64c phases=1 bus1=64.3 basekv=2.4 angle=120 pu=0.98
+New Generator.der64a phases=1 bus1=64.1 conn=wye kv=2.4 kw=2.0 kvar=4.5 model=1
+New Generator.der64b phases=1 bus1=64.2 conn=wye kv=2.4 kw=272 kvar=45 model=1
+New Generator.der64c phases=1 bus1=64.3 conn=wye kv=2.4 kw=272 kvar=70 model=1
+New Generator.der78a phases=1 bus1=78.1 conn=wye kv=2.4 kw=177.86027176489668 kvar=133.3954538236725 model=1
+New Generator.der78b phases=1 bus1=78.2 conn=wye kv=2.4 kw=177.86027176489668 kvar=133.3954538236725 model=1
+New Generator.der78c phases=1 bus1=78.3 conn=wye kv=2.4 kw=177.86027176489668 kvar=51.62686328243061 model=1
+New Generator.der95a phases=1 bus1=95.1 conn=wye kv=2.4 kw=116.11963582066534 kvar=50.81701537163537 model=1
+New Generator.der95b phases=1 bus1=95.2 conn=wye kv=2.4 kw=116.11963582066534 kvar=87.08997686549901 model=1
+New Generator.der95c phases=1 bus1=95.3 conn=wye kv=2.4 kw=116.11963582066534 kvar=87.08997686549901 model=1
+
+New Load.S1a  bus1=1.1 phases=1 conn=wye model=1 kv=2.4 kw=0.3593752042150472 kvar=-9.461604959539596
+New Load.S1b  bus1=1.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S1c  bus1=1.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S2b  bus1=2.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S3c  bus1=3.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S4c  bus1=4.3 phases=1 conn=wye model=1 kv=2.4 kw=-4.879226005252002 kvar=-5.14266678666258
+New Load.S5c  bus1=5.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=19.2162822338273
+New Load.S6c  bus1=6.3 phases=1 conn=wye model=1 kv=2.4 kw=-2.896462595695466 kvar=-14.07361544716472
+New Load.S7a  bus1=7.1 phases=1 conn=wye model=1 kv=2.4 kw=28.791085504493612 kvar=19.75870995971098
+New Load.S7b  bus1=7.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S7c  bus1=7.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S8a  bus1=8.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S8b  bus1=8.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S8c  bus1=8.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S9a  bus1=9.1 phases=1 conn=wye model=1 kv=2.4 kw=-12.811015510014773 kvar=-15.684647125396562
+New Load.S10a  bus1=10.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=20.8424070115548
+New Load.S11a  bus1=11.1 phases=1 conn=wye model=1 kv=2.4 kw=-16.339445198693888 kvar=-15.454864886329624
+New Load.S12b  bus1=12.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S13a  bus1=13.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S13b  bus1=13.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S13c  bus1=13.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S14a  bus1=14.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S15c  bus1=15.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S16c  bus1=16.3 phases=1 conn=wye model=1 kv=2.4 kw=-6.849605968837968 kvar=-7.801011548403728
+New Load.S17c  bus1=17.3 phases=1 conn=wye model=1 kv=2.4 kw=18.874223397744114 kvar=19.7876486894633
+New Load.S18a  bus1=18.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S18b  bus1=18.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S18c  bus1=18.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S19a  bus1=19.1 phases=1 conn=wye model=1 kv=2.4 kw=-7.49068657297953 kvar=-18.101820402172525
+New Load.S20a  bus1=20.1 phases=1 conn=wye model=1 kv=2.4 kw=82.903052529288 kvar=41.451526264644
+New Load.S21a  bus1=21.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S21b  bus1=21.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S21c  bus1=21.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S22b  bus1=22.2 phases=1 conn=wye model=1 kv=2.4 kw=19.293070057297427 kvar=-10.651330417449529
+New Load.S23a  bus1=23.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S23b  bus1=23.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S23c  bus1=23.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S24c  bus1=24.3 phases=1 conn=wye model=1 kv=2.4 kw=82.26435796842961 kvar=41.132178984214804
+New Load.S25a  bus1=25.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S25b  bus1=25.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S25c  bus1=25.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S26a  bus1=26.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S26c  bus1=26.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S27a  bus1=27.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S27c  bus1=27.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S28a  bus1=28.1 phases=1 conn=wye model=1 kv=2.4 kw=-11.793183322968515 kvar=38.955073044289065
+New Load.S28b  bus1=28.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S28c  bus1=28.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S29a  bus1=29.1 phases=1 conn=wye model=1 kv=2.4 kw=79.12279347921184 kvar=39.56139673960592
+New Load.S29b  bus1=29.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S29c  bus1=29.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S30a  bus1=30.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S30b  bus1=30.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S30c  bus1=30.3 phases=1 conn=wye model=1 kv=2.4 kw=3.3969313160249524 kvar=-10.735938063820821
+New Load.S31c  bus1=31.3 phases=1 conn=wye model=1 kv=2.4 kw=42.4176897894592 kvar=21.2088448947296
+New Load.S32c  bus1=32.3 phases=1 conn=wye model=1 kv=2.4 kw=-8.597049344440578 kvar=-7.9881198411681344
+New Load.S33a  bus1=33.1 phases=1 conn=wye model=1 kv=2.4 kw=78.58415501034888 kvar=39.29207750517444
+New Load.S34c  bus1=34.3 phases=1 conn=wye model=1 kv=2.4 kw=-4.248928827958678 kvar=-11.986637141059573
+New Load.S35a  bus1=35.1 phases=1 conn=wye model=1 kv=2.4 kw=1.9301932841552734 kvar=10.261146913615109
+New Load.S35b  bus1=35.2 phases=1 conn=wye model=1 kv=2.4 kw=3.8362165398994255 kvar=16.437373743961803
+New Load.S35c  bus1=35.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S36a  bus1=36.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S36b  bus1=36.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S37a  bus1=37.1 phases=1 conn=wye model=1 kv=2.4 kw=84.9481373398784 kvar=42.4740686699392
+New Load.S38b  bus1=38.2 phases=1 conn=wye model=1 kv=2.4 kw=8.13404611106204 kvar=-9.141226168723879
+New Load.S39b  bus1=39.2 phases=1 conn=wye model=1 kv=2.4 kw=38.4406011737416 kvar=19.2203005868708
+New Load.S40a  bus1=40.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S40b  bus1=40.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S40c  bus1=40.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S41c  bus1=41.3 phases=1 conn=wye model=1 kv=2.4 kw=3.0372591819221486 kvar=-3.749999999999999
+New Load.S42a  bus1=42.1 phases=1 conn=wye model=1 kv=2.4 kw=36.9959753269092 kvar=18.4979876634546
+New Load.S42b  bus1=42.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S42c  bus1=42.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S43b  bus1=43.2 phases=1 conn=wye model=1 kv=2.4 kw=12.599160710625872 kvar=37.949878087210216
+New Load.S44a  bus1=44.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S44b  bus1=44.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S44c  bus1=44.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S45a  bus1=45.1 phases=1 conn=wye model=1 kv=2.4 kw=42.2150499254304 kvar=21.1075249627152
+New Load.S46a  bus1=46.1 phases=1 conn=wye model=1 kv=2.4 kw=-4.9 kvar=-3.749999999999999
+New Load.S47a  bus1=47.1 phases=1 conn=wye model=1 kv=2.4 kw=67.80259111833129 kvar=48.430422227379495
+New Load.S47b  bus1=47.2 phases=1 conn=wye model=1 kv=2.4 kw=72.85157799149299 kvar=52.03684142249499
+New Load.S47c  bus1=47.3 phases=1 conn=wye model=1 kv=2.4 kw=70.6014929577748 kvar=50.429637826982
+New Load.S48a  bus1=48.1 phases=1 conn=wye model=1 kv=2.4 kw=-19.16876007420866 kvar=30.102986183446458
+New Load.S48b  bus1=48.2 phases=1 conn=wye model=1 kv=2.4 kw=18.693912856402687 kvar=57.353725188869575
+New Load.S48c  bus1=48.3 phases=1 conn=wye model=1 kv=2.4 kw=-16.609074396125717 kvar=65.56572113288132
+New Load.S49a  bus1=49.1 phases=1 conn=wye model=1 kv=2.4 kw=69.02910721617351 kvar=49.30650515440964
+New Load.S49b  bus1=49.2 phases=1 conn=wye model=1 kv=2.4 kw=13.492025451890408 kvar=-22.70010427392464
+New Load.S49c  bus1=49.3 phases=1 conn=wye model=1 kv=2.4 kw=69.5114186475268 kvar=39.7208106557296
+New Load.S50a  bus1=50.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S50b  bus1=50.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S50c  bus1=50.3 phases=1 conn=wye model=1 kv=2.4 kw=-0.6861188652810922 kvar=-11.580455148080793
+New Load.S51a  bus1=51.1 phases=1 conn=wye model=1 kv=2.4 kw=39.84016364127432 kvar=19.92008182063716
+New Load.S51b  bus1=51.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S51c  bus1=51.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S52a  bus1=52.1 phases=1 conn=wye model=1 kv=2.4 kw=-12.434368096459856 kvar=36.884269047935376
+New Load.S52b  bus1=52.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S52c  bus1=52.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S53a  bus1=53.1 phases=1 conn=wye model=1 kv=2.4 kw=82.9056889163584 kvar=41.4528444581792
+New Load.S53b  bus1=53.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S53c  bus1=53.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S54a  bus1=54.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S54b  bus1=54.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S54c  bus1=54.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S55a  bus1=55.1 phases=1 conn=wye model=1 kv=2.4 kw=-8.511698269211319 kvar=21.667032650216882
+New Load.S55b  bus1=55.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S55c  bus1=55.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S56a  bus1=56.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S56b  bus1=56.2 phases=1 conn=wye model=1 kv=2.4 kw=35.12825922438505 kvar=18.29921572993248
+New Load.S56c  bus1=56.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S57a  bus1=57.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S57b  bus1=57.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S57c  bus1=57.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S58b  bus1=58.2 phases=1 conn=wye model=1 kv=2.4 kw=-12.580129475885188 kvar=-11.334303543585312
+New Load.S59b  bus1=59.2 phases=1 conn=wye model=1 kv=2.4 kw=38.09863777687704 kvar=19.04931888843852
+New Load.S60a  bus1=60.1 phases=1 conn=wye model=1 kv=2.4 kw=-10.272277419629065 kvar=-10.105512162712278
+New Load.S60b  bus1=60.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S60c  bus1=60.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S61a  bus1=61.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S61b  bus1=61.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S61c  bus1=61.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S62a  bus1=62.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S62b  bus1=62.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S62c  bus1=62.3 phases=1 conn=wye model=1 kv=2.4 kw=81.54571488094479 kvar=40.77285744047239
+New Load.S63a  bus1=63.1 phases=1 conn=wye model=1 kv=2.4 kw=-10.18261405806535 kvar=-19.668685575525792
+New Load.S63b  bus1=63.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S63c  bus1=63.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S64a  bus1=64.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S64b  bus1=64.2 phases=1 conn=wye model=1 kv=2.4 kw=140.6919665837535 kvar=65.6562510724183
+New Load.S64c  bus1=64.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S65a  bus1=65.1 phases=1 conn=wye model=1 kv=2.4 kw=-11.855338917003463 kvar=51.13497409053053
+New Load.S65b  bus1=65.2 phases=1 conn=wye model=1 kv=2.4 kw=-13.189970069918662 kvar=39.83477205516693
+New Load.S65c  bus1=65.3 phases=1 conn=wye model=1 kv=2.4 kw=-22.433847035302495 kvar=51.072457213628525
+New Load.S66a  bus1=66.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S66b  bus1=66.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S66c  bus1=66.3 phases=1 conn=wye model=1 kv=2.4 kw=150.27793078625098 kvar=70.1297010335838
+New Load.S67a  bus1=67.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S67b  bus1=67.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S67c  bus1=67.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S68a  bus1=68.1 phases=1 conn=wye model=1 kv=2.4 kw=-6.829680479056987 kvar=18.345535887130552
+New Load.S69a  bus1=69.1 phases=1 conn=wye model=1 kv=2.4 kw=86.3524123645672 kvar=43.1762061822836
+New Load.S70a  bus1=70.1 phases=1 conn=wye model=1 kv=2.4 kw=-1.8960594066402434 kvar=17.343313553237756
+New Load.S71a  bus1=71.1 phases=1 conn=wye model=1 kv=2.4 kw=79.382201141914 kvar=39.691100570957
+New Load.S72a  bus1=72.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S72b  bus1=72.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S72c  bus1=72.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S73c  bus1=73.3 phases=1 conn=wye model=1 kv=2.4 kw=-4.601986779087898 kvar=31.617021242507274
+New Load.S74c  bus1=74.3 phases=1 conn=wye model=1 kv=2.4 kw=81.38270702907279 kvar=40.691353514536395
+New Load.S75c  bus1=75.3 phases=1 conn=wye model=1 kv=2.4 kw=-2.8382682526120324 kvar=31.762362377369552
+New Load.S76a  bus1=76.1 phases=1 conn=wye model=1 kv=2.4 kw=-16.039714789783922 kvar=69.70663713089277
+New Load.S76b  bus1=76.2 phases=1 conn=wye model=1 kv=2.4 kw=-18.971309951608436 kvar=-10.883034268123625
+New Load.S76c  bus1=76.3 phases=1 conn=wye model=1 kv=2.4 kw=-24.252407479496082 kvar=66.02056977194326
+New Load.S77a  bus1=77.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S77b  bus1=77.2 phases=1 conn=wye model=1 kv=2.4 kw=81.96567598809199 kvar=40.982837994045994
+New Load.S77c  bus1=77.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S78a  bus1=78.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S78b  bus1=78.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S78c  bus1=78.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S79a  bus1=79.1 phases=1 conn=wye model=1 kv=2.4 kw=-11.20941139816239 kvar=33.83630062452363
+New Load.S79b  bus1=79.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S79c  bus1=79.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S80a  bus1=80.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S80b  bus1=80.2 phases=1 conn=wye model=1 kv=2.4 kw=81.6833521743152 kvar=40.8416760871576
+New Load.S80c  bus1=80.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S81a  bus1=81.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S81b  bus1=81.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S81c  bus1=81.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S82a  bus1=82.1 phases=1 conn=wye model=1 kv=2.4 kw=-7.4596929490650865 kvar=36.61255721946808
+New Load.S82b  bus1=82.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S82c  bus1=82.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S83a  bus1=83.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=-211.581845494572
+New Load.S83b  bus1=83.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=-203.68713978528
+New Load.S83c  bus1=83.3 phases=1 conn=wye model=1 kv=2.4 kw=39.34980086980224 kvar=-177.07410391411008
+New Load.S84c  bus1=84.3 phases=1 conn=wye model=1 kv=2.4 kw=40.385235613190396 kvar=20.192617806595198
+New Load.S85c  bus1=85.3 phases=1 conn=wye model=1 kv=2.4 kw=-5.724136931923954 kvar=-13.80364459505545
+New Load.S86a  bus1=86.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S86b  bus1=86.2 phases=1 conn=wye model=1 kv=2.4 kw=39.49383365849036 kvar=19.74691682924518
+New Load.S86c  bus1=86.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S87a  bus1=87.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S87b  bus1=87.2 phases=1 conn=wye model=1 kv=2.4 kw=83.52171090074799 kvar=41.760855450373995
+New Load.S87c  bus1=87.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S88a  bus1=88.1 phases=1 conn=wye model=1 kv=2.4 kw=81.42183970308 kvar=-10.177729962885
+New Load.S89a  bus1=89.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S89b  bus1=89.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S89c  bus1=89.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S90b  bus1=90.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=-9.96856579707941
+New Load.S91a  bus1=91.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S91b  bus1=91.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S91c  bus1=91.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S92c  bus1=92.3 phases=1 conn=wye model=1 kv=2.4 kw=79.68169474693856 kvar=-9.96021184336732
+New Load.S93a  bus1=93.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S93b  bus1=93.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S93c  bus1=93.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S94a  bus1=94.1 phases=1 conn=wye model=1 kv=2.4 kw=-16.442737543863203 kvar=-12.631208417644082
+New Load.S95a  bus1=95.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S95b  bus1=95.2 phases=1 conn=wye model=1 kv=2.4 kw=39.50815407078692 kvar=19.75407703539346
+New Load.S95c  bus1=95.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S96b  bus1=96.2 phases=1 conn=wye model=1 kv=2.4 kw=-4.143352126501483 kvar=-3.749999999999999
+New Load.S97a  bus1=97.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S97b  bus1=97.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S97c  bus1=97.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S98a  bus1=98.1 phases=1 conn=wye model=1 kv=2.4 kw=77.04935878658328 kvar=38.52467939329164
+New Load.S98b  bus1=98.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S98c  bus1=98.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S99a  bus1=99.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S99b  bus1=99.2 phases=1 conn=wye model=1 kv=2.4 kw=-11.440850979736098 kvar=35.776326414648935
+New Load.S99c  bus1=99.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S100a  bus1=100.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S100b  bus1=100.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S100c  bus1=100.3 phases=1 conn=wye model=1 kv=2.4 kw=79.21341332734104 kvar=39.60670666367052
+New Load.S101a  bus1=101.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S101b  bus1=101.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S101c  bus1=101.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S102c  bus1=102.3 phases=1 conn=wye model=1 kv=2.4 kw=-5.009322075264404 kvar=-11.6619776965928
+New Load.S103c  bus1=103.3 phases=1 conn=wye model=1 kv=2.4 kw=78.39526613402944 kvar=39.19763306701472
+New Load.S104c  bus1=104.3 phases=1 conn=wye model=1 kv=2.4 kw=-4.727220581654664 kvar=-16.006887422034204
+New Load.S105a  bus1=105.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S105b  bus1=105.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S105c  bus1=105.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S106b  bus1=106.2 phases=1 conn=wye model=1 kv=2.4 kw=77.3608819707292 kvar=38.6804409853646
+New Load.S107b  bus1=107.2 phases=1 conn=wye model=1 kv=2.4 kw=3.5177145077013376 kvar=32.017368859891455
+New Load.S108a  bus1=108.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S108b  bus1=108.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S108c  bus1=108.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S109a  bus1=109.1 phases=1 conn=wye model=1 kv=2.4 kw=84.1304175054296 kvar=42.0652087527148
+New Load.S110a  bus1=110.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S111a  bus1=111.1 phases=1 conn=wye model=1 kv=2.4 kw=6.498374473789636 kvar=14.249999999999996
+New Load.S112a  bus1=112.1 phases=1 conn=wye model=1 kv=2.4 kw=39.62026886817608 kvar=19.81013443408804
+New Load.S113a  bus1=113.1 phases=1 conn=wye model=1 kv=2.4 kw=2.344060728924883 kvar=34.69010489190439
+New Load.S114a  bus1=114.1 phases=1 conn=wye model=1 kv=2.4 kw=40.25837163631999 kvar=20.129185818159996
+New Load.S115a  bus1=115.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S115b  bus1=115.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S115c  bus1=115.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S116a  bus1=116.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S116b  bus1=116.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S116c  bus1=116.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S117a  bus1=117.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S117b  bus1=117.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S117c  bus1=117.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S118a  bus1=118.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S118b  bus1=118.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S118c  bus1=118.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S119a  bus1=119.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S119b  bus1=119.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S119c  bus1=119.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S120a  bus1=120.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S120b  bus1=120.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S120c  bus1=120.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S121a  bus1=121.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S121b  bus1=121.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S121c  bus1=121.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S122a  bus1=122.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S122b  bus1=122.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S122c  bus1=122.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S123a  bus1=123.1 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S123b  bus1=123.2 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+New Load.S123c  bus1=123.3 phases=1 conn=wye model=1 kv=2.4 kw=0.0 kvar=0.0
+
+Buscoords Buscoords.dat   ! load in bus coordinates

@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Max Margin IRL using linear function approximator &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Bayesian Inverse RL" href="birl.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="birl.html" title="Bayesian Inverse RL"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Max Margin IRL using linear function approximator</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="max-margin-irl-using-linear-function-approximator">
+<h1>Max Margin IRL using linear function approximator<a class="headerlink" href="#max-margin-irl-using-linear-function-approximator" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-linear_func_approx"></span><dl class="py class">
+<dt class="sig sig-object py" id="linear_func_approx.Gridworld">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">linear_func_approx.</span></span><span class="sig-name descname"><span class="pre">Gridworld</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discount</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.Gridworld" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Gridworld MDP.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="linear_func_approx.Gridworld.average_reward">
+<span class="sig-name descname"><span class="pre">average_reward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_trajectories</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">policy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.Gridworld.average_reward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the average total reward obtained by following a given policy
+over n_paths paths.</p>
+<p>policy: Map from state integers to action integers.
+n_trajectories: Number of trajectories. int.
+trajectory_length: Length of an episode. int.
+-&gt; Average reward, standard deviation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="linear_func_approx.Gridworld.feature_matrix">
+<span class="sig-name descname"><span class="pre">feature_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ident'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.Gridworld.feature_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the feature matrix for this gridworld.</p>
+<dl class="simple">
+<dt>feature_map: Which feature map to use (default ident). String in {ident,</dt><dd><p>coord, proxi}.</p>
+</dd>
+</dl>
+<p>-&gt; NumPy array with shape (n_states, d_states).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="linear_func_approx.Gridworld.feature_vector">
+<span class="sig-name descname"><span class="pre">feature_vector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ident'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.Gridworld.feature_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the feature vector associated with a state integer.</p>
+<p>i: State int.
+feature_map: Which feature map to use (default ident). String in {ident,</p>
+<blockquote>
+<div><p>coord, proxi}.</p>
+</div></blockquote>
+<p>-&gt; Feature vector.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="linear_func_approx.Gridworld.generate_trajectories">
+<span class="sig-name descname"><span class="pre">generate_trajectories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_trajectories</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectory_length</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">policy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.Gridworld.generate_trajectories" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate n_trajectories trajectories with length trajectory_length,
+following the given policy.</p>
+<p>n_trajectories: Number of trajectories. int.
+trajectory_length: Length of an episode. int.
+policy: Map from state integers to action integers.
+random_start: Whether to start randomly (default False). bool.
+-&gt; [[(state int, action int, reward float)]]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="linear_func_approx.Gridworld.int_to_point">
+<span class="sig-name descname"><span class="pre">int_to_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.Gridworld.int_to_point" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a state int into the corresponding coordinate.</p>
+<p>i: State int.
+-&gt; (x, y) int tuple.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="linear_func_approx.Gridworld.neighbouring">
+<span class="sig-name descname"><span class="pre">neighbouring</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.Gridworld.neighbouring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get whether two points neighbour each other. Also returns true if they
+are the same point.</p>
+<p>i: (x, y) int tuple.
+k: (x, y) int tuple.
+-&gt; bool.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="linear_func_approx.Gridworld.optimal_policy">
+<span class="sig-name descname"><span class="pre">optimal_policy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.Gridworld.optimal_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>The optimal policy for this gridworld.</p>
+<p>state_int: What state we are in. int.
+-&gt; Action int.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="linear_func_approx.Gridworld.optimal_policy_deterministic">
+<span class="sig-name descname"><span class="pre">optimal_policy_deterministic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.Gridworld.optimal_policy_deterministic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deterministic version of the optimal policy for this gridworld.</p>
+<p>state_int: What state we are in. int.
+-&gt; Action int.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="linear_func_approx.Gridworld.point_to_int">
+<span class="sig-name descname"><span class="pre">point_to_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.Gridworld.point_to_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a coordinate into the corresponding state int.</p>
+<p>p: (x, y) tuple.
+-&gt; State int.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="linear_func_approx.Gridworld.reward">
+<span class="sig-name descname"><span class="pre">reward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state_int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.Gridworld.reward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reward for being in state state_int.</p>
+<p>state_int: State integer. int.
+-&gt; Reward.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="linear_func_approx.find_policy">
+<span class="sig-prename descclassname"><span class="pre">linear_func_approx.</span></span><span class="sig-name descname"><span class="pre">find_policy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transition_probabilities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stochastic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.find_policy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the optimal policy.</p>
+<p>n_states: Number of states. int.
+n_actions: Number of actions. int.
+transition_probabilities: Function taking (state, action, state) to</p>
+<blockquote>
+<div><p>transition probabilities.</p>
+</div></blockquote>
+<p>reward: Vector of rewards for each state.
+discount: MDP discount factor. float.
+threshold: Convergence threshold, default 1e-2. float.
+v: Value function (if known). Default None.
+stochastic: Whether the policy should be stochastic. Default True.
+-&gt; Action probabilities for each state or action int for each state</p>
+<blockquote>
+<div><p>(depending on stochasticity).</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="linear_func_approx.irl">
+<span class="sig-prename descclassname"><span class="pre">linear_func_approx.</span></span><span class="sig-name descname"><span class="pre">irl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transition_probability</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">policy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Rmax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.irl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find a reward function with inverse RL as described in Ng &amp; Russell, 2000.</p>
+<p>n_states: Number of states. int.
+n_actions: Number of actions. int.
+transition_probability: NumPy array mapping (state_i, action, state_k) to</p>
+<blockquote>
+<div><p>the probability of transitioning from state_i to state_k under action.
+Shape (N, A, N).</p>
+</div></blockquote>
+<p>policy: Vector mapping state ints to action ints. Shape (N,).
+discount: Discount factor. float.
+Rmax: Maximum reward. float.
+l1: l1 regularisation. float.
+-&gt; Reward vector</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="linear_func_approx.large_irl">
+<span class="sig-prename descclassname"><span class="pre">linear_func_approx.</span></span><span class="sig-name descname"><span class="pre">large_irl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transition_probability</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">policy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.large_irl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the reward in a large state space.</p>
+<dl class="simple">
+<dt>value: NumPy matrix for the value function. The (i, j)th component</dt><dd><p>represents the value of the jth state under the ith basis function.</p>
+</dd>
+<dt>transition_probability: NumPy array mapping (state_i, action, state_k) to</dt><dd><p>the probability of transitioning from state_i to state_k under action.
+Shape (N, A, N).</p>
+</dd>
+<dt>feature_matrix: Matrix with the nth row representing the nth state. NumPy</dt><dd><p>array with shape (N, D) where N is the number of states and D is the
+dimensionality of the state.</p>
+</dd>
+</dl>
+<p>n_states: Number of states sampled. int.
+n_actions: Number of actions. int.
+policy: NumPy array mapping state ints to action ints.
+-&gt; Reward for each state in states.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="linear_func_approx.large_network_test">
+<span class="sig-prename descclassname"><span class="pre">linear_func_approx.</span></span><span class="sig-name descname"><span class="pre">large_network_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discount</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.large_network_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run large state space linear programming inverse reinforcement learning on
+the gridworld MDP.</p>
+<p>Plots the reward function.</p>
+<p>grid_size: Grid size. int.
+discount: MDP discount factor. float.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="linear_func_approx.optimal_value">
+<span class="sig-prename descclassname"><span class="pre">linear_func_approx.</span></span><span class="sig-name descname"><span class="pre">optimal_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transition_probabilities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.optimal_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the optimal value function.</p>
+<p>n_states: Number of states. int.
+n_actions: Number of actions. int.
+transition_probabilities: Function taking (state, action, state) to</p>
+<blockquote>
+<div><p>transition probabilities.</p>
+</div></blockquote>
+<p>reward: Vector of rewards for each state.
+discount: MDP discount factor. float.
+threshold: Convergence threshold, default 1e-2. float.
+-&gt; Array of values for each state</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="linear_func_approx.small_network_test">
+<span class="sig-prename descclassname"><span class="pre">linear_func_approx.</span></span><span class="sig-name descname"><span class="pre">small_network_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grid_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discount</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.small_network_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run linear programming inverse reinforcement learning on the gridworld MDP.
+Plots the reward function.
+grid_size: Grid size. int.
+discount: MDP discount factor. float.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="linear_func_approx.v_tensor">
+<span class="sig-prename descclassname"><span class="pre">linear_func_approx.</span></span><span class="sig-name descname"><span class="pre">v_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transition_probability</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_dimension</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">policy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.v_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the v tensor used in large linear IRL.</p>
+<dl class="simple">
+<dt>value: NumPy matrix for the value function. The (i, j)th component</dt><dd><p>represents the value of the jth state under the ith basis function.</p>
+</dd>
+<dt>transition_probability: NumPy array mapping (state_i, action, state_k) to</dt><dd><p>the probability of transitioning from state_i to state_k under action.
+Shape (N, A, N).</p>
+</dd>
+</dl>
+<p>feature_dimension: Dimension of the feature matrix. int.
+n_states: Number of states sampled. int.
+n_actions: Number of actions. int.
+policy: NumPy array mapping state ints to action ints.
+-&gt; v helper tensor.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="linear_func_approx.value">
+<span class="sig-prename descclassname"><span class="pre">linear_func_approx.</span></span><span class="sig-name descname"><span class="pre">value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">policy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transition_probabilities</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#linear_func_approx.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the value function associated with a policy.</p>
+<p>policy: List of action ints for each state.
+n_states: Number of states. int.
+transition_probabilities: Function taking (state, action, state) to</p>
+<blockquote>
+<div><p>transition probabilities.</p>
+</div></blockquote>
+<p>reward: Vector of rewards for each state.
+discount: MDP discount factor. float.
+threshold: Convergence threshold, default 1e-2. float.
+-&gt; Array of values for each state</p>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="birl.html"
+                          title="previous chapter">Bayesian Inverse RL</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/linear_func_approx.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="birl.html" title="Bayesian Inverse RL"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Max Margin IRL using linear function approximator</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

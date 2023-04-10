@@ -1,0 +1,7 @@
+test\_gail\_CP\_env\_ieee123\_case\_new\_expert module
+======================================================
+
+.. automodule:: test_gail_CP_env_ieee123_case_new_expert
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>OpenDSS RL Env Test &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SimPyDSS RL Env Test" href="CPEnv_DiscreteDSS_RtrDropRate.html" />
+    <link rel="prev" title="SimPy Cyber RL Env Test" href="SimpyCyberEnvTest.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="CPEnv_DiscreteDSS_RtrDropRate.html" title="SimPyDSS RL Env Test"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="SimpyCyberEnvTest.html" title="SimPy Cyber RL Env Test"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">OpenDSS RL Env Test</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="opendss-rl-env-test">
+<h1>OpenDSS RL Env Test<a class="headerlink" href="#opendss-rl-env-test" title="Permalink to this headline">¶</a></h1>
+<section id="module-OpenDssEnvTest">
+<span id="classes-and-functions"></span><h2>Classes and Functions<a class="headerlink" href="#module-OpenDssEnvTest" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="OpenDssEnvTest.create_env_run">
+<span class="sig-prename descclassname"><span class="pre">OpenDssEnvTest.</span></span><span class="sig-name descname"><span class="pre">create_env_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">critical_loads_buses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">capacitor_banks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">switches</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_faults</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ders</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OpenDssEnvTest.create_env_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the environment and run with a random agent..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – Path to the main directory.</p></li>
+<li><p><strong>critical_loads_buses</strong> (<em>list</em>) – list of critical load buses</p></li>
+<li><p><strong>capacitor_banks</strong> (<em>str</em>) – list of capacitor banks</p></li>
+<li><p><strong>switches</strong> (<em>str</em>) – list of controllable network switches</p></li>
+<li><p><strong>line_faults</strong> (<em>str</em>) – list of line outages taken into consideration</p></li>
+<li><p><strong>ders</strong> (<em>list</em>) – list of DERs added into the system</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>env</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>gym.Env</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="OpenDssEnvTest.testAgent">
+<span class="sig-prename descclassname"><span class="pre">OpenDssEnvTest.</span></span><span class="sig-name descname"><span class="pre">testAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OpenDssEnvTest.testAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the trained model..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>env</strong> (<em>gym.Env</em>) – The openDss RL environment</p></li>
+<li><p><strong>model</strong> (<em>gym.Env</em>) – The trained policy network</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Nothing</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="OpenDssEnvTest.trainAgent">
+<span class="sig-prename descclassname"><span class="pre">OpenDssEnvTest.</span></span><span class="sig-name descname"><span class="pre">trainAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#OpenDssEnvTest.trainAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train the model using either A2C or PPO..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>env</strong> (<em>gym.Env</em>) – The openDss RL environment</p></li>
+<li><p><strong>agent_type</strong> (<em>str</em>) – The agent type</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The trained model</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Torch model</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">OpenDSS RL Env Test</a><ul>
+<li><a class="reference internal" href="#module-OpenDssEnvTest">Classes and Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="SimpyCyberEnvTest.html"
+                          title="previous chapter">SimPy Cyber RL Env Test</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="CPEnv_DiscreteDSS_RtrDropRate.html"
+                          title="next chapter">SimPyDSS RL Env Test</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/OpenDssEnvTest.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="CPEnv_DiscreteDSS_RtrDropRate.html" title="SimPyDSS RL Env Test"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="SimpyCyberEnvTest.html" title="SimPy Cyber RL Env Test"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">OpenDSS RL Env Test</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

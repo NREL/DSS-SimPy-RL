@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>SimpyCyberEnvTest module &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-SimpyCyberEnvTest">
+<span id="simpycyberenvtest-module"></span><h1>SimpyCyberEnvTest module<a class="headerlink" href="#module-SimpyCyberEnvTest" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="SimpyCyberEnvTest.create_env_run">
+<span class="sig-prename descclassname"><span class="pre">SimpyCyberEnvTest.</span></span><span class="sig-name descname"><span class="pre">create_env_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channelModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envDebug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queueLimit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channelBW</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">withThreat</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimpyCyberEnvTest.create_env_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the Simpy based cyber environment and run with a random agent..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>graph</em>) – Networkx graph model</p></li>
+<li><p><strong>channelModel</strong> (<em>bool</em>) – select if there is channel considered within state space</p></li>
+<li><p><strong>envDebug</strong> (<em>bool</em>) – enable/disable the debugging of the cyber environment</p></li>
+<li><p><strong>queueLimit</strong> (<em>int</em>) – defined the queue limit of the routers in the network</p></li>
+<li><p><strong>channelBW</strong> (<em>int</em>) – set the channel bandwidth</p></li>
+<li><p><strong>withThreat</strong> – indicates if threat model is enabled</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>env</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>gym.Env</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SimpyCyberEnvTest.testAgent">
+<span class="sig-prename descclassname"><span class="pre">SimpyCyberEnvTest.</span></span><span class="sig-name descname"><span class="pre">testAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimpyCyberEnvTest.testAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the trained model..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>env</strong> (<em>gym.Env</em>) – The openDss RL environment</p></li>
+<li><p><strong>model</strong> (<em>gym.Env</em>) – The trained policy network</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Nothing</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SimpyCyberEnvTest.trainAgent">
+<span class="sig-prename descclassname"><span class="pre">SimpyCyberEnvTest.</span></span><span class="sig-name descname"><span class="pre">trainAgent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SimpyCyberEnvTest.trainAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train the model using either A2C or PPO..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>env</strong> (<em>gym.Env</em>) – The openDss RL environment</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The trained model</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Torch model</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Adaptive Resilience Metric IRL</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Abhijeet Sahu.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/SimpyCyberEnvTest.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

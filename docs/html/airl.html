@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Adversarial IRL &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Deep Q Network Learning" href="dqn.html" />
+    <link rel="prev" title="Generative Adversarial Imitation Learning (GAIL)" href="gail.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dqn.html" title="Deep Q Network Learning"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gail.html" title="Generative Adversarial Imitation Learning (GAIL)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Adversarial IRL</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="adversarial-irl">
+<h1>Adversarial IRL<a class="headerlink" href="#adversarial-irl" title="Permalink to this headline">¶</a></h1>
+<section id="module-airl">
+<span id="classes-and-functions"></span><h2>Classes and Functions<a class="headerlink" href="#module-airl" title="Permalink to this headline">¶</a></h2>
+<p>Adversarial Inverse Reinforcement Learning (AIRL).
+Code adopted from <a class="reference external" href="https://github.com/HumanCompatibleAI/imitation.git">https://github.com/HumanCompatibleAI/imitation.git</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="airl.AIRL">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">airl.</span></span><span class="sig-name descname"><span class="pre">AIRL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demonstrations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="types_unique.html#types_unique.Trajectory" title="types_unique.Trajectory"><span class="pre">types_unique.Trajectory</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">TransitionKind</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">demo_batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">venv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stable_baselines3.common.vec_env.base_vec_env.VecEnv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gen_algo</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stable_baselines3.common.base_class.BaseAlgorithm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_net</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="reward_nets.html#reward_nets.RewardNet" title="reward_nets.RewardNet"><span class="pre">reward_nets.RewardNet</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#airl.AIRL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="common.html#common.AdversarialTrainer" title="common.AdversarialTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">common.AdversarialTrainer</span></code></a></p>
+<p>Adversarial Inverse Reinforcement Learning (<a class="reference external" href="https://arxiv.org/abs/1710.11248">AIRL</a>).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="airl.AIRL.logits_gen_is_high">
+<span class="sig-name descname"><span class="pre">logits_gen_is_high</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">next_state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">done</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_policy_act_prob</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">torch.Tensor</span></span></span><a class="headerlink" href="#airl.AIRL.logits_gen_is_high" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the discriminator’s logits for each state-action sample.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="airl.AIRL.reward_test">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reward_test</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="reward_nets.html#reward_nets.RewardNet" title="reward_nets.RewardNet"><span class="pre">reward_nets.RewardNet</span></a></em><a class="headerlink" href="#airl.AIRL.reward_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the unshaped version of reward network used for testing.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="airl.AIRL.reward_train">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reward_train</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="reward_nets.html#reward_nets.RewardNet" title="reward_nets.RewardNet"><span class="pre">reward_nets.RewardNet</span></a></em><a class="headerlink" href="#airl.AIRL.reward_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reward used to train generator policy.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="airl.AIRL.venv">
+<span class="sig-name descname"><span class="pre">venv</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">stable_baselines3.common.vec_env.base_vec_env.VecEnv</span></em><a class="headerlink" href="#airl.AIRL.venv" title="Permalink to this definition">¶</a></dt>
+<dd><p>The original vectorized environment.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="airl.AIRL.venv_train">
+<span class="sig-name descname"><span class="pre">venv_train</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">stable_baselines3.common.vec_env.base_vec_env.VecEnv</span></em><a class="headerlink" href="#airl.AIRL.venv_train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Like <cite>self.venv</cite>, but wrapped with train reward unless in debug mode.</p>
+<p>If <cite>debug_use_ground_truth=True</cite> was passed into the initializer then
+<cite>self.venv_train</cite> is the same as <cite>self.venv</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Adversarial IRL</a><ul>
+<li><a class="reference internal" href="#module-airl">Classes and Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="gail.html"
+                          title="previous chapter">Generative Adversarial Imitation Learning (GAIL)</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="dqn.html"
+                          title="next chapter">Deep Q Network Learning</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/airl.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dqn.html" title="Deep Q Network Learning"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gail.html" title="Generative Adversarial Imitation Learning (GAIL)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Adversarial IRL</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

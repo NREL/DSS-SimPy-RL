@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Bayesian Inverse RL &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Max Margin IRL using linear function approximator" href="linear_func_approx.html" />
+    <link rel="prev" title="Reward Network Visualization for Critical Load Restoration" href="visualize_reward_net_physical.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="linear_func_approx.html" title="Max Margin IRL using linear function approximator"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="visualize_reward_net_physical.html" title="Reward Network Visualization for Critical Load Restoration"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Bayesian Inverse RL</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="bayesian-inverse-rl">
+<h1>Bayesian Inverse RL<a class="headerlink" href="#bayesian-inverse-rl" title="Permalink to this headline">¶</a></h1>
+<p>Bayesian IRL targets in learning a function that maximizes the posterior distribution of the reward. The advantage of Bayesian method is the ability to convey the prior information about the reward through a prior distribution. In the current work, we can consider of leveraging this since, we can use the existing formula of topological resilience metric. Currently, we have to think which parameter of this prior distribution will change based on the topological variation. Another advantage of using Bayesian IRL is the ability to account for complex behavior by modeling reward probabilistic-ally as a mixture of multiple resilient functions.</p>
+<section id="module-birl">
+<span id="classes-and-functions"></span><h2>Classes and Functions<a class="headerlink" href="#module-birl" title="Permalink to this headline">¶</a></h2>
+<p>Created on Thu Jun 16 15:08:05 2022</p>
+<p>&#64;author: abhijeetsahu</p>
+<p>This is the tested Bayesian IRL code adopted from : <a class="reference external" href="https://github.com/amsterg/birl">https://github.com/amsterg/birl</a></p>
+<p>Tested for a Frozen LAke environment</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="birl.Birl">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">birl.</span></span><span class="sig-name descname"><span class="pre">Birl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_states</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#birl.Birl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="birl.Birl.mcmc_reward_step">
+<span class="sig-name descname"><span class="pre">mcmc_reward_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rewards</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_max</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#birl.Birl.mcmc_reward_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="birl.Birl.optimal_q_check">
+<span class="sig-name descname"><span class="pre">optimal_q_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pi</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#birl.Birl.optimal_q_check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="birl.Birl.policy_walk">
+<span class="sig-name descname"><span class="pre">policy_walk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#birl.Birl.policy_walk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="birl.Birl.posterior">
+<span class="sig-name descname"><span class="pre">posterior</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agent_with_env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#birl.Birl.posterior" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="birl.Birl.posteriors_ratio">
+<span class="sig-name descname"><span class="pre">posteriors_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp_new</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#birl.Birl.posteriors_ratio" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="birl.Birl.sample_random_rewards">
+<span class="sig-name descname"><span class="pre">sample_random_rewards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_max</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#birl.Birl.sample_random_rewards" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample random rewards form gridpoint(R^{n_states}/step_size).
+:param n_states:
+:param step_size:
+:param r_max:
+:return: sampled rewards</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="birl.Birl.sim">
+<span class="sig-name descname"><span class="pre">sim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agent_with_env</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#birl.Birl.sim" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="birl.DP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">birl.</span></span><span class="sig-name descname"><span class="pre">DP</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#birl.DP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="birl.DP.policy_eval">
+<span class="sig-name descname"><span class="pre">policy_eval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#birl.DP.policy_eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="birl.DP.policy_imp">
+<span class="sig-name descname"><span class="pre">policy_imp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#birl.DP.policy_imp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="birl.DP.policy_iter">
+<span class="sig-name descname"><span class="pre">policy_iter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#birl.DP.policy_iter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Bayesian Inverse RL</a><ul>
+<li><a class="reference internal" href="#module-birl">Classes and Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="visualize_reward_net_physical.html"
+                          title="previous chapter">Reward Network Visualization for Critical Load Restoration</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="linear_func_approx.html"
+                          title="next chapter">Max Margin IRL using linear function approximator</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/birl.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="linear_func_approx.html" title="Max Margin IRL using linear function approximator"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="visualize_reward_net_physical.html" title="Reward Network Visualization for Critical Load Restoration"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Bayesian Inverse RL</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

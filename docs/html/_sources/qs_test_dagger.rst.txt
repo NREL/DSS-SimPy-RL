@@ -1,0 +1,7 @@
+qs\_test\_dagger module
+=======================
+
+.. automodule:: qs_test_dagger
+   :members:
+   :undoc-members:
+   :show-inheritance:

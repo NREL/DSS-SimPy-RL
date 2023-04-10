@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>rollout module &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">rollout module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-rollout">
+<span id="rollout-module"></span><h1>rollout module<a class="headerlink" href="#module-rollout" title="Permalink to this headline">¶</a></h1>
+<p>Methods to collect, analyze and manipulate transition and trajectory rollouts.
+Code adopted from <a class="reference external" href="https://github.com/HumanCompatibleAI/imitation.git">https://github.com/HumanCompatibleAI/imitation.git</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="rollout.TrajectoryAccumulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rollout.</span></span><span class="sig-name descname"><span class="pre">TrajectoryAccumulator</span></span><a class="headerlink" href="#rollout.TrajectoryAccumulator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Accumulates trajectories step-by-step.</p>
+<p>Useful for collecting completed trajectories while ignoring partially-completed
+trajectories (e.g. when rolling out a VecEnv to collect a set number of
+transitions). Each in-progress trajectory is identified by a ‘key’, which enables
+several independent trajectories to be collected at once. They key can also be left
+at its default value of <cite>None</cite> if you only wish to collect one trajectory.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rollout.TrajectoryAccumulator.add_step">
+<span class="sig-name descname"><span class="pre">add_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Hashable</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#rollout.TrajectoryAccumulator.add_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a single step to the partial trajectory identified by <cite>key</cite>.</p>
+<p>Generally a single step could correspond to, e.g., one environment managed
+by a VecEnv.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>step_dict: dictionary containing information for the current step. Its</dt><dd><p>keys could include any (or all) attributes of a <cite>TrajectoryWithRew</cite>
+(e.g. “obs”, “acts”, etc.).</p>
+</dd>
+<dt>key: key to uniquely identify the trajectory to append to, if working</dt><dd><p>with multiple partial trajectories.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rollout.TrajectoryAccumulator.add_steps_and_auto_finish">
+<span class="sig-name descname"><span class="pre">add_steps_and_auto_finish</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rews</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dones</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manual</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="types_unique.html#types_unique.TrajectoryWithRew" title="types_unique.TrajectoryWithRew"><span class="pre">types_unique.TrajectoryWithRew</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#rollout.TrajectoryAccumulator.add_steps_and_auto_finish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls <cite>add_step</cite> repeatedly using acts and the returns from <cite>venv.step</cite>.</p>
+<p>Also automatically calls <cite>finish_trajectory()</cite> for each <cite>done == True</cite>.
+Before calling this method, each environment index key needs to be
+initialized with the initial observation (usually from <cite>venv.reset()</cite>).</p>
+<p>See the body of <cite>util.rollout.generate_trajectory</cite> for an example.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>acts: Actions passed into <cite>VecEnv.step()</cite>.
+obs: Return value from <cite>VecEnv.step(acts)</cite>.
+rews: Return value from <cite>VecEnv.step(acts)</cite>.
+dones: Return value from <cite>VecEnv.step(acts)</cite>.
+infos: Return value from <cite>VecEnv.step(acts)</cite>.</p>
+</dd>
+<dt>Returns:</dt><dd><p>A list of completed trajectories. There should be one trajectory for
+each <cite>True</cite> in the <cite>dones</cite> argument.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rollout.TrajectoryAccumulator.finish_trajectory">
+<span class="sig-name descname"><span class="pre">finish_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Hashable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="types_unique.html#types_unique.TrajectoryWithRew" title="types_unique.TrajectoryWithRew"><span class="pre">types_unique.TrajectoryWithRew</span></a></span></span><a class="headerlink" href="#rollout.TrajectoryAccumulator.finish_trajectory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Complete the trajectory labelled with <cite>key</cite>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>key: key uniquely identifying which in-progress trajectory to remove.
+terminal: trajectory has naturally finished (i.e. includes terminal state).</p>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>traj: list of completed trajectories popped from</dt><dd><p><cite>self.partial_trajectories</cite>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rollout.discounted_sum">
+<span class="sig-prename descclassname"><span class="pre">rollout.</span></span><span class="sig-name descname"><span class="pre">discounted_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#rollout.discounted_sum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the discounted sum of <cite>arr</cite>.</p>
+<p>If <cite>arr</cite> is an array of rewards, then this computes the return;
+however, it can also be used to e.g. compute discounted state
+occupancy measures.</p>
+<dl>
+<dt>Args:</dt><dd><dl class="simple">
+<dt>arr: 1 or 2-dimensional array to compute discounted sum over.</dt><dd><p>Last axis is timestep, from current time step (first) to
+last timestep (last). First axis (if present) is batch
+dimension.</p>
+</dd>
+</dl>
+<p>gamma: the discount factor used.</p>
+</dd>
+<dt>Returns:</dt><dd><p>The discounted sum over the timestep axis. The first timestep is undiscounted,
+i.e. we start at gamma^0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rollout.flatten_trajectories">
+<span class="sig-prename descclassname"><span class="pre">rollout.</span></span><span class="sig-name descname"><span class="pre">flatten_trajectories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trajectories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="types_unique.html#types_unique.Trajectory" title="types_unique.Trajectory"><span class="pre">types_unique.Trajectory</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="types_unique.html#types_unique.Transitions" title="types_unique.Transitions"><span class="pre">types_unique.Transitions</span></a></span></span><a class="headerlink" href="#rollout.flatten_trajectories" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flatten a series of trajectory dictionaries into arrays.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>trajectories: list of trajectories.</p>
+</dd>
+<dt>Returns:</dt><dd><p>The trajectories flattened into a single batch of Transitions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rollout.flatten_trajectories_with_rew">
+<span class="sig-prename descclassname"><span class="pre">rollout.</span></span><span class="sig-name descname"><span class="pre">flatten_trajectories_with_rew</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trajectories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="types_unique.html#types_unique.TrajectoryWithRew" title="types_unique.TrajectoryWithRew"><span class="pre">types_unique.TrajectoryWithRew</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="types_unique.html#types_unique.TransitionsWithRew" title="types_unique.TransitionsWithRew"><span class="pre">types_unique.TransitionsWithRew</span></a></span></span><a class="headerlink" href="#rollout.flatten_trajectories_with_rew" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rollout.generate_trajectories">
+<span class="sig-prename descclassname"><span class="pre">rollout.</span></span><span class="sig-name descname"><span class="pre">generate_trajectories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">policy:</span> <span class="pre">typing.Optional[typing.Union[stable_baselines3.common.base_class.BaseAlgorithm,</span> <span class="pre">stable_baselines3.common.policies.BasePolicy,</span> <span class="pre">typing.Callable[numpy.ndarray,</span> <span class="pre">numpy.ndarray]]],</span> <span class="pre">venv:</span> <span class="pre">stable_baselines3.common.vec_env.base_vec_env.VecEnv,</span> <span class="pre">sample_until:</span> <span class="pre">typing.Callable[typing.Sequence[types_unique.TrajectoryWithRew],</span> <span class="pre">bool],</span> <span class="pre">*,</span> <span class="pre">deterministic_policy:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">rng:</span> <span class="pre">numpy.random.mtrand.RandomState</span> <span class="pre">=</span> <span class="pre">&lt;module</span> <span class="pre">'numpy.random'</span> <span class="pre">from</span> <span class="pre">'C:\\Users\\asahu\\.conda\\envs\\generic_gym_env\\lib\\site-packages\\numpy\\random\\__init__.py'&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="types_unique.html#types_unique.TrajectoryWithRew" title="types_unique.TrajectoryWithRew"><span class="pre">types_unique.TrajectoryWithRew</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#rollout.generate_trajectories" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate trajectory dictionaries from a policy and an environment.</p>
+<dl>
+<dt>Args:</dt><dd><dl>
+<dt>policy: Can be any of the following:</dt><dd><ol class="arabic simple">
+<li><p>A stable_baselines3 policy or algorithm trained on the gym environment.</p></li>
+</ol>
+<p>2) A Callable that takes an ndarray of observations and returns an ndarray
+of corresponding actions.
+3) None, in which case actions will be sampled randomly.</p>
+</dd>
+</dl>
+<p>venv: The vectorized environments to interact with.
+sample_until: A function determining the termination condition.</p>
+<blockquote>
+<div><p>It takes a sequence of trajectories, and returns a bool.
+Most users will want to use one of <cite>min_episodes</cite> or <cite>min_timesteps</cite>.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>deterministic_policy: If True, asks policy to deterministically return</dt><dd><p>action. Note the trajectories might still be non-deterministic if the
+environment has non-determinism!</p>
+</dd>
+</dl>
+<p>rng: used for shuffling trajectories.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Sequence of trajectories, satisfying <cite>sample_until</cite>. Additional trajectories
+may be collected to avoid biasing process towards short episodes; the user
+should truncate if required.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rollout.generate_transitions">
+<span class="sig-prename descclassname"><span class="pre">rollout.</span></span><span class="sig-name descname"><span class="pre">generate_transitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">policy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">stable_baselines3.common.base_class.BaseAlgorithm</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">stable_baselines3.common.policies.BasePolicy</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">venv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stable_baselines3.common.vec_env.base_vec_env.VecEnv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_timesteps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">truncate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="types_unique.html#types_unique.TransitionsWithRew" title="types_unique.TransitionsWithRew"><span class="pre">types_unique.TransitionsWithRew</span></a></span></span><a class="headerlink" href="#rollout.generate_transitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate obs-action-next_obs-reward tuples.</p>
+<dl>
+<dt>Args:</dt><dd><dl>
+<dt>policy: Can be any of the following:</dt><dd><ul class="simple">
+<li><p>A stable_baselines3 policy or algorithm trained on the gym environment</p></li>
+<li><p>A Callable that takes an ndarray of observations and returns an ndarray</p></li>
+</ul>
+<p>of corresponding actions
+- None, in which case actions will be sampled randomly</p>
+</dd>
+</dl>
+<p>venv: The vectorized environments to interact with.
+n_timesteps: The minimum number of timesteps to sample.
+truncate: If True, then drop any additional samples to ensure that exactly</p>
+<blockquote>
+<div><p><cite>n_timesteps</cite> samples are returned.</p>
+</div></blockquote>
+<p><a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs: Passed-through to generate_trajectories.</p>
+</dd>
+<dt>Returns:</dt><dd><p>A batch of Transitions. The length of the constituent arrays is guaranteed
+to be at least <cite>n_timesteps</cite> (if specified), but may be greater unless
+<cite>truncate</cite> is provided as we collect data until the end of each episode.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rollout.make_min_episodes">
+<span class="sig-prename descclassname"><span class="pre">rollout.</span></span><span class="sig-name descname"><span class="pre">make_min_episodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="types_unique.html#types_unique.TrajectoryWithRew" title="types_unique.TrajectoryWithRew"><span class="pre">types_unique.TrajectoryWithRew</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#rollout.make_min_episodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Terminate after collecting n episodes of data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>n: Minimum number of episodes of data to collect.</dt><dd><p>May overshoot if two episodes complete simultaneously (unlikely).</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>A function implementing this termination condition.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rollout.make_min_timesteps">
+<span class="sig-prename descclassname"><span class="pre">rollout.</span></span><span class="sig-name descname"><span class="pre">make_min_timesteps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="types_unique.html#types_unique.TrajectoryWithRew" title="types_unique.TrajectoryWithRew"><span class="pre">types_unique.TrajectoryWithRew</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#rollout.make_min_timesteps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Terminate at the first episode after collecting n timesteps of data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>n: Minimum number of timesteps of data to collect.</dt><dd><p>May overshoot to nearest episode boundary.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>A function implementing this termination condition.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rollout.make_sample_until">
+<span class="sig-prename descclassname"><span class="pre">rollout.</span></span><span class="sig-name descname"><span class="pre">make_sample_until</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_timesteps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_episodes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="types_unique.html#types_unique.TrajectoryWithRew" title="types_unique.TrajectoryWithRew"><span class="pre">types_unique.TrajectoryWithRew</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#rollout.make_sample_until" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a termination condition sampling for a number of timesteps and episodes.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="simple">
+<dt>min_timesteps: Sampling will not stop until there are at least this many</dt><dd><p>timesteps.</p>
+</dd>
+<dt>min_episodes: Sampling will not stop until there are at least this many</dt><dd><p>episodes.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><p>A termination condition.</p>
+</dd>
+<dt>Raises:</dt><dd><dl class="simple">
+<dt>ValueError: Neither of n_timesteps and n_episodes are set, or either are</dt><dd><p>non-positive.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rollout.rollout">
+<span class="sig-prename descclassname"><span class="pre">rollout.</span></span><span class="sig-name descname"><span class="pre">rollout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">policy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">stable_baselines3.common.base_class.BaseAlgorithm</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">stable_baselines3.common.policies.BasePolicy</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">venv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stable_baselines3.common.vec_env.base_vec_env.VecEnv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_until</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="types_unique.html#types_unique.TrajectoryWithRew" title="types_unique.TrajectoryWithRew"><span class="pre">types_unique.TrajectoryWithRew</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unwrap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_infos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="types_unique.html#types_unique.TrajectoryWithRew" title="types_unique.TrajectoryWithRew"><span class="pre">types_unique.TrajectoryWithRew</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#rollout.rollout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate policy rollouts.</p>
+<p>The <cite>.infos</cite> field of each Trajectory is set to <cite>None</cite> to save space.</p>
+<dl>
+<dt>Args:</dt><dd><dl>
+<dt>policy: Can be any of the following:</dt><dd><ol class="arabic simple">
+<li><p>A stable_baselines3 policy or algorithm trained on the gym environment.</p></li>
+</ol>
+<p>2) A Callable that takes an ndarray of observations and returns an ndarray
+of corresponding actions.
+3) None, in which case actions will be sampled randomly.</p>
+</dd>
+</dl>
+<p>venv: The vectorized environments.
+sample_until: End condition for rollout sampling.
+unwrap: If True, then save original observations and rewards (instead of</p>
+<blockquote>
+<div><p>potentially wrapped observations and rewards) by calling
+<cite>unwrap_traj()</cite>.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>exclude_infos: If True, then exclude <cite>infos</cite> from pickle by setting</dt><dd><p>this field to None. Excluding <cite>infos</cite> can save a lot of space during
+pickles.</p>
+</dd>
+</dl>
+<p>verbose: If True, then print out rollout stats before saving.
+<a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs: Passed through to <cite>generate_trajectories</cite>.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Sequence of trajectories, satisfying <cite>sample_until</cite>. Additional trajectories
+may be collected to avoid biasing process towards short episodes; the user
+should truncate if required.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rollout.rollout_stats">
+<span class="sig-prename descclassname"><span class="pre">rollout.</span></span><span class="sig-name descname"><span class="pre">rollout_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trajectories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="types_unique.html#types_unique.TrajectoryWithRew" title="types_unique.TrajectoryWithRew"><span class="pre">types_unique.TrajectoryWithRew</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#rollout.rollout_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates various stats for a sequence of trajectories.</p>
+<dl>
+<dt>Args:</dt><dd><p>trajectories: Sequence of trajectories.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Dictionary containing <cite>n_traj</cite> collected (int), along with episode return
+statistics (keys: <cite>{monitor_,}return_{min,mean,std,max}</cite>, float values)
+and trajectory length statistics (keys: <cite>len_{min,mean,std,max}</cite>, float
+values).</p>
+<p><cite>return_*</cite> values are calculated from environment rewards.
+<cite>monitor_*</cite> values are calculated from Monitor-captured rewards, and
+are only included if the <cite>trajectories</cite> contain Monitor infos.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rollout.unwrap_traj">
+<span class="sig-prename descclassname"><span class="pre">rollout.</span></span><span class="sig-name descname"><span class="pre">unwrap_traj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">traj</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="types_unique.html#types_unique.TrajectoryWithRew" title="types_unique.TrajectoryWithRew"><span class="pre">types_unique.TrajectoryWithRew</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="types_unique.html#types_unique.TrajectoryWithRew" title="types_unique.TrajectoryWithRew"><span class="pre">types_unique.TrajectoryWithRew</span></a></span></span><a class="headerlink" href="#rollout.unwrap_traj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses <cite>RolloutInfoWrapper</cite>-captured <cite>obs</cite> and <cite>rews</cite> to replace fields.</p>
+<p>This can be useful for bypassing other wrappers to retrieve the original
+<cite>obs</cite> and <cite>rews</cite>.</p>
+<p>Fails if <cite>infos</cite> is None or if the trajectory was generated from an
+environment without imitation.util.rollout.RolloutInfoWrapper</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>traj: A trajectory generated from <cite>RolloutInfoWrapper</cite>-wrapped Environments.</p>
+</dd>
+<dt>Returns:</dt><dd><p>A copy of <cite>traj</cite> with replaced <cite>obs</cite> and <cite>rews</cite> fields.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/rollout.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">rollout module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>

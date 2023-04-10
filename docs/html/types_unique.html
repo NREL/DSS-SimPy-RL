@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>types_unique module &#8212; Adaptive Resilience Metric IRL  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">types_unique module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-types_unique">
+<span id="types-unique-module"></span><h1>types_unique module<a class="headerlink" href="#module-types_unique" title="Permalink to this headline">¶</a></h1>
+<p>Types and helper methods for transitions and trajectories.
+Code adopted from <a class="reference external" href="https://github.com/HumanCompatibleAI/imitation.git">https://github.com/HumanCompatibleAI/imitation.git</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="types_unique.Trajectory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">types_unique.</span></span><span class="sig-name descname"><span class="pre">Trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#types_unique.Trajectory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A trajectory, e.g. a one episode rollout from an expert policy.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="types_unique.Trajectory.acts">
+<span class="sig-name descname"><span class="pre">acts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#types_unique.Trajectory.acts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Actions, shape (trajectory_len, ) + action_shape.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="types_unique.Trajectory.infos">
+<span class="sig-name descname"><span class="pre">infos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#types_unique.Trajectory.infos" title="Permalink to this definition">¶</a></dt>
+<dd><p>An array of info dicts, length trajectory_len.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="types_unique.Trajectory.obs">
+<span class="sig-name descname"><span class="pre">obs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#types_unique.Trajectory.obs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Observations, shape (trajectory_len + 1, ) + observation_shape.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="types_unique.Trajectory.terminal">
+<span class="sig-name descname"><span class="pre">terminal</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#types_unique.Trajectory.terminal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does this trajectory (fragment) end in a terminal state?</p>
+<p>Episodes are always terminal. Trajectory fragments are also terminal when they
+contain the final state of an episode (even if missing the start of the episode).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="types_unique.TrajectoryWithRew">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">types_unique.</span></span><span class="sig-name descname"><span class="pre">TrajectoryWithRew</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">terminal</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rews</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#types_unique.TrajectoryWithRew" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#types_unique.Trajectory" title="types_unique.Trajectory"><code class="xref py py-class docutils literal notranslate"><span class="pre">types_unique.Trajectory</span></code></a></p>
+<p>A <cite>Trajectory</cite> that additionally includes reward information.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="types_unique.TrajectoryWithRew.rews">
+<span class="sig-name descname"><span class="pre">rews</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#types_unique.TrajectoryWithRew.rews" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reward, shape (trajectory_len, ). dtype float.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="types_unique.Transitions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">types_unique.</span></span><span class="sig-name descname"><span class="pre">Transitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">next_obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dones</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#types_unique.Transitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#types_unique.TransitionsMinimal" title="types_unique.TransitionsMinimal"><code class="xref py py-class docutils literal notranslate"><span class="pre">types_unique.TransitionsMinimal</span></code></a></p>
+<p>A batch of obs-act-obs-done transitions.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="types_unique.Transitions.dones">
+<span class="sig-name descname"><span class="pre">dones</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#types_unique.Transitions.dones" title="Permalink to this definition">¶</a></dt>
+<dd><p>Boolean array indicating episode termination. Shape: (batch_size, ).</p>
+<p><cite>done[i]</cite> is true iff <cite>next_obs[i]</cite> the last observation of an episode.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="types_unique.Transitions.next_obs">
+<span class="sig-name descname"><span class="pre">next_obs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#types_unique.Transitions.next_obs" title="Permalink to this definition">¶</a></dt>
+<dd><p>New observation. Shape: (batch_size, ) + observation_shape.</p>
+<p>The i’th observation <cite>next_obs[i]</cite> in this array is the observation
+after the agent has taken action <cite>acts[i]</cite>.</p>
+<dl class="simple">
+<dt>Invariants:</dt><dd><ul class="simple">
+<li><p><cite>next_obs.dtype == obs.dtype</cite></p></li>
+<li><p><cite>len(next_obs) == len(obs)</cite></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="types_unique.TransitionsMinimal">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">types_unique.</span></span><span class="sig-name descname"><span class="pre">TransitionsMinimal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#types_unique.TransitionsMinimal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.dataset.Dataset</span></code></p>
+<p>A Torch-compatible <cite>Dataset</cite> of obs-act transitions.</p>
+<p>This class and its subclasses are usually instantiated via
+<cite>imitation.data.rollout.flatten_trajectories</cite>.</p>
+<p>Indexing an instance <cite>trans</cite> of TransitionsMinimal with an integer <cite>i</cite>
+returns the <cite>i`th `Dict[str, np.ndarray]</cite> sample, whose keys are the field
+names of each dataclass field and whose values are the ith elements of each field
+value.</p>
+<p>Slicing returns a possibly empty instance of <cite>TransitionsMinimal</cite> where each
+field has been sliced.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="types_unique.TransitionsMinimal.acts">
+<span class="sig-name descname"><span class="pre">acts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#types_unique.TransitionsMinimal.acts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Actions. Shape: (batch_size,) + action_shape.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="types_unique.TransitionsMinimal.infos">
+<span class="sig-name descname"><span class="pre">infos</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#types_unique.TransitionsMinimal.infos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Array of info dicts. Shape: (batch_size,).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="types_unique.TransitionsMinimal.obs">
+<span class="sig-name descname"><span class="pre">obs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#types_unique.TransitionsMinimal.obs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Previous observations. Shape: (batch_size, ) + observation_shape.</p>
+<p>The i’th observation <cite>obs[i]</cite> in this array is the observation seen
+by the agent when choosing action <cite>acts[i]</cite>. <cite>obs[i]</cite> is not required to
+be from the timestep preceding <cite>obs[i+1]</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="types_unique.TransitionsWithRew">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">types_unique.</span></span><span class="sig-name descname"><span class="pre">TransitionsWithRew</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">next_obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dones</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rews</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#types_unique.TransitionsWithRew" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#types_unique.Transitions" title="types_unique.Transitions"><code class="xref py py-class docutils literal notranslate"><span class="pre">types_unique.Transitions</span></code></a></p>
+<p>A batch of obs-act-obs-rew-done transitions.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="types_unique.TransitionsWithRew.rews">
+<span class="sig-name descname"><span class="pre">rews</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><a class="headerlink" href="#types_unique.TransitionsWithRew.rews" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reward. Shape: (batch_size, ). dtype float.</p>
+<p>The reward <cite>rew[i]</cite> at the i’th timestep is received after the
+agent has taken action <cite>acts[i]</cite>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="types_unique.dataclass_quick_asdict">
+<span class="sig-prename descclassname"><span class="pre">types_unique.</span></span><span class="sig-name descname"><span class="pre">dataclass_quick_asdict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#types_unique.dataclass_quick_asdict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract dataclass to items using <cite>dataclasses.fields</cite> + dict comprehension.</p>
+<p>This is a quick alternative to <cite>dataclasses.asdict</cite>, which expensively and
+undocumentedly deep-copies every numpy array value.
+See <a class="reference external" href="https://stackoverflow.com/a/52229565/1091722">https://stackoverflow.com/a/52229565/1091722</a>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>obj: A dataclass instance.</p>
+</dd>
+<dt>Returns:</dt><dd><p>A dictionary mapping from <cite>obj</cite> field names to values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="types_unique.load">
+<span class="sig-prename descclassname"><span class="pre">types_unique.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#types_unique.Trajectory" title="types_unique.Trajectory"><span class="pre">types_unique.Trajectory</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#types_unique.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a sequence of trajectories saved by <cite>save()</cite> from <cite>path</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="types_unique.load_with_rewards">
+<span class="sig-prename descclassname"><span class="pre">types_unique.</span></span><span class="sig-name descname"><span class="pre">load_with_rewards</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#types_unique.TrajectoryWithRew" title="types_unique.TrajectoryWithRew"><span class="pre">types_unique.TrajectoryWithRew</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#types_unique.load_with_rewards" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a sequence of trajectories with rewards from a file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="types_unique.path_to_str">
+<span class="sig-prename descclassname"><span class="pre">types_unique.</span></span><span class="sig-name descname"><span class="pre">path_to_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#types_unique.path_to_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="types_unique.save">
+<span class="sig-prename descclassname"><span class="pre">types_unique.</span></span><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">os.PathLike</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trajectories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#types_unique.Trajectory" title="types_unique.Trajectory"><span class="pre">types_unique.Trajectory</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#types_unique.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a sequence of Trajectories to disk using a NumPy-based format.</p>
+<p>We create an .npz dictionary with the following keys:
+* obs: flattened observations from all trajectories. Note that the leading
+dimension of this array will be <cite>len(trajectories)</cite> longer than the <cite>acts</cite>
+and <cite>infos</cite> arrays, because we always have one more observation than we have
+actions in any trajectory.
+* acts: flattened actions from all trajectories
+* infos: flattened info dicts from all trajectories. Any trajectories with
+no info dict will have their entry in this array set to the empty dictionary.
+* terminal: boolean array indicating whether each trajectory is done.
+* indices: indices indicating where to split the flattened action and infos
+arrays, in order to recover the original trajectories. Will be a 1D array of
+length <cite>len(trajectories)</cite>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>path: Trajectories are saved to this path.
+trajectories: The trajectories to save.</p>
+</dd>
+<dt>Raises:</dt><dd><dl class="simple">
+<dt>ValueError: If the trajectories are not all of the same type, i.e. some are</dt><dd><p><cite>Trajectory</cite> and others are <cite>TrajectoryWithRew</cite>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="types_unique.transitions_collate_fn">
+<span class="sig-prename descclassname"><span class="pre">types_unique.</span></span><span class="sig-name descname"><span class="pre">transitions_collate_fn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#types_unique.transitions_collate_fn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Custom <cite>torch.utils.data.DataLoader</cite> collate_fn for <cite>TransitionsMinimal</cite>.</p>
+<p>Use this as the <cite>collate_fn</cite> argument to <cite>DataLoader</cite> if using an instance of
+<cite>TransitionsMinimal</cite> as the <cite>dataset</cite> argument.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>batch: The batch to collate.</p>
+</dd>
+<dt>Returns:</dt><dd><p>A collated batch. Uses Torch’s default collate function for everything
+except the “infos” key. For “infos”, we join all the info dicts into a
+list of dicts. (The default behavior would recursively collate every
+info dict into a single dict, which is incorrect.)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/types_unique.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Adaptive Resilience Metric IRL  documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">types_unique module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, NREL, Golden, CO.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.4.0.
+    </div>
+  </body>
+</html>
