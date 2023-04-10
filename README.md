@@ -59,11 +59,11 @@ Commad: `conda env create --file environment.yaml`
 
 - **visuals**: This folder is a visualization app for visualizing the simulation and observing the resilience metric in real-time as the episodes and their steps are executed. The `OpenDssEnvVisual.py` is the application implementation for the Open DSS physical RL environment.
 
-![Sample Visualization for the open-DSS RL environment](https://github.com/Abhijeet1990/Dss-SimPy-RL/blob/main/visualization.PNG?raw=true)
+![Sample Visualization for the open-DSS RL environment](https://github.com/NREL/DSS-SimPy-RL/blob/main/visualization.PNG?raw=true)
 
 `CyberEnvVisual.py` is the application implementation for the Simpy based Cyber RL environment. The IEEE 123 bus case is divided into 7 zones. Within each zones there is a `data concentrator` shown in red node, the green node is the `DSO`, while all the blue nodes are the `Routers` represent the hybrid topology. 
 
-![Sample Visualization for the Simpy-based RL environment](https://github.com/Abhijeet1990/Dss-SimPy-RL/blob/main/cyber_visualization_new.PNG?raw=true)
+![Sample Visualization for the Simpy-based RL environment](https://github.com/NREL/DSS-SimPy-RL/blob/main/cyber_visualization_new.PNG?raw=true)
 
 `CyberPhysicalEnvVisual.py` is the application implementation for the Simpy based and OpenDSS based CyberPhysical combined RL environment.
 
