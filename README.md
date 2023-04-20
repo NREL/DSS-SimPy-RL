@@ -7,6 +7,7 @@ Commad: `conda env create --file environment.yaml`
 **Description of the files within `agents` folder**
 - `dqn.py` : Given the Reward model, training the RL agent using Deep Q Learning.
 - `per_dqn.py` : Implementation of the Prioritized Experience Replay based-Deep Q Learning
+
 Within `airl` branch:
 - `imitation` : This folder contains the agents used for Behavioral Clonning, DAgger, Adversarial Inverse RL, Generative Adversarial Imitation Learning.
 - `vvo` : Contains the A2C and AIRL based agents for the Volt Var Control with the environment in the `powergym` folder. 
